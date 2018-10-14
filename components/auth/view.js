@@ -33,7 +33,7 @@ export default class AuthView extends Component {
     return (
       <View style={ styles.container }>
         <Text style={ styles.title }>
-          TogethNOM
+          Break Bread.
         </Text>
 
         { this.state.mode == null

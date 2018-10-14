@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 
 import styles from '../../assets/styles'
+import AuthInput from './inputs'
 
 export default class AuthForm extends Component {
   constructor(props){
@@ -13,68 +14,66 @@ export default class AuthForm extends Component {
     this.state = {
       username: '',
       password: '',
-      passwordSecondary: '',
       phone: ''
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+
+    const username = {
+      name: 'username',
+      label: 'Username',
+      value: this.state.username,
+      handleChange: this.handleChange,
+      returnKey: 'next',
+      keyboard: 'default',
+      placeholder: 'Make it fun!',
+      autoFocus: true,
+    }
+    const password = {
+      name: 'password',
+      label: 'Password',
+      value: this.state.password,
+      handleChange: this.handleChange,
+      returnKey: 'next',
+      keyboard: 'default',
+      placeholder: 'Make it difficult!',
+      autoFocus: false,
+    }
+    const phoneNumber = {
+      name: 'phone',
+      label: 'Phone Number',
+      value: this.state.phone,
+      handleChange: this.handleChange,
+      returnKey: 'done',
+      keyboard: 'phone-pad',
+      placeholder: 'Make it!',
+      autoFocus: false,
+    }
+
+    this.inputs = [username, password, phoneNumber]
+  }
+
+  handleChange(obj) {
+    for (key in obj) {
+      this.setState({ [key]: obj[key] })
     }
   }
 
   render() {
     return (
-      <View>
-        <Text style={ styles.label }>
-          Username
-        </Text>
-        <TextInput
-          style={ styles.input }
-          value={ this.state.username }
-          onChangeText={ text => this.setState({ username: text }) }
-          autoCapitalize='none'
-          autoCorrect={ false }
-          returnKeyType='next'
-          placeholder="Make it fun!"
-          autoFocus={ true }
-        />
-
-        <Text style={ styles.label }>
-          Password
-        </Text>
-        <TextInput
-          style={ styles.input }
-          value={ this.state.password }
-          onChangeText={ text => this.setState({ password: text }) }
-          autoCapitalize='none'
-          autoCorrect={ false }
-          returnKeyType='next'
-          placeholder="No requirements here"
-        />
-
-        <Text style={ styles.label }>
-          Confirm Password
-        </Text>
-        <TextInput
-          style={ styles.input }
-          value={ this.state.passwordSecondary }
-          onChangeText={ text => this.setState({ passwordSecondary: text }) }
-          autoCapitalize='none'
-          autoCorrect={ false }
-          returnKeyType='next'
-          placeholder="Make sure you got it right"
-        />
-
-        <Text style={ styles.label }>
-          Phone Number
-        </Text>
-        <TextInput
-          style={ styles.input }
-          value={ this.state.phone }
-          onChangeText={ number => this.setState({ phone: number }) }
-          autoCapitalize='none'
-          autoCorrect={ false }
-          returnKeyType='done'
-          keyboardType='phone-pad'
-          placeholder="So we can verify you are in fact you"
-        />
-      </View>
+      this.inputs.map((prop, i) => (
+          <AuthInput
+            name={ prop.name }
+            label={ prop.label }
+            value={ prop.value }
+            handleChange={ prop.handleChange }
+            returnKey={ prop.returnKey }
+            keyboard={ prop.keyboard }
+            placeholder={ prop.placeholder }
+            autoFocus={ prop.autoFocus }
+            key={i}
+          />
+      ))
     )
   }
 }
