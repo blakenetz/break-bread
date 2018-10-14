@@ -79,9 +79,10 @@ export default class App extends Component {
           ? <DatePickerIOS
               date={ this.state.chosenDate }
               onDateChange={ this.setDate }
-              mode='date'
+              mode='datetime'
               minimumDate={ this.minDate }
               maximumDate={ this.maxDate }
+              minuteInterval={15}
             />
           : null }
 
