@@ -4,21 +4,30 @@ import {
   Text,
   View,
   DatePickerIOS,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native'
+
+import ReactNativeComponentTree from 'react-native/Libraries/Renderer/shims/ReactNativeComponentTree';
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // dates
+      showDatePicker: false,
       chosenDate: new Date(Date.now() + 12096e5), // 2 weeks from today
       minDate: new Date(),
       maxDate: new Date(Date.now() + (12096e5*2)), // 4 weeks from today
+
+      // themes
+      showThemePicker: false,
+      chosenTheme: null,
     }
 
     this.setDate = this.setDate.bind(this)
     this.formatDate = this.formatDate.bind(this)
-    this.handlePress = this.handlePress.bind(this)
+    this.handleDatePress = this.handleDatePress.bind(this)
+    this.handleThemePress = this.handleThemePress.bind(this)
   }
 
   setDate(date) {
@@ -34,8 +43,12 @@ export default class App extends Component {
     return date.toLocaleDateString('en-US', dateOptions)
   }
 
-  handlePress() {
-    console.log('press')
+  handleDatePress() {
+    this.setState({ showDatePicker: ! this.state.showDatePicker })
+  }
+
+  handleThemePress() {
+    this.setState({ showThemePicker: ! this.state.showThemePicker })
   }
 
 
@@ -48,27 +61,33 @@ export default class App extends Component {
           Next family dinner is {this.formatDate(this.state.chosenDate)}
         </Text>
 
-        <TouchableHighlight
+        <TouchableOpacity
+          onPress={ this.handleDatePress }
           style={ styles.button }
-          onPress={ this.handlePress }
         >
           <Text>Pick a Date!</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <TouchableHighlight
+        <TouchableOpacity
+          onPress={ this.handleThemePress }
           style={ styles.button }
-          onPress={ this.handlePress }
         >
           <Text>Pick a Theme!</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
-        <DatePickerIOS
-          date={ this.state.chosenDate }
-          onDateChange={ this.setDate }
-          mode='date'
-          minimumDate={ this.minDate }
-          maximumDate={ this.maxDate }
-        />
+        { this.state.showDatePicker
+          ? <DatePickerIOS
+              date={ this.state.chosenDate }
+              onDateChange={ this.setDate }
+              mode='date'
+              minimumDate={ this.minDate }
+              maximumDate={ this.maxDate }
+            />
+          : null }
+
+        { this.state.showThemePicker
+          ? <Text>THEME PICKER PLACEHOLDER</Text>
+          : null }
 
       </View>
     )
@@ -93,8 +112,8 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    alignItems: 'center',
     backgroundColor: '#FE638F',
+    alignItems: 'center',
     padding: 10,
     margin: 10,
     borderTopLeftRadius: 10,
