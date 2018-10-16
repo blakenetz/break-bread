@@ -52,7 +52,7 @@ export default class AuthForm extends Component {
         // remove from errors
         if (i > -1) {
           this.setState( prevState => {
-            return { errors: prevState.errors.splice(i, 1) }
+            return { errors: prevState.errors.filter(error => error !== key) }
           })
         }
       }
