@@ -24,45 +24,6 @@ export default class AuthForm extends Component {
     this.validateInput = this.validateInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
-    // inputs
-    const username = {
-      name: 'username',
-      label: 'Username',
-      value: this.state.username,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'next',
-      keyboard: 'default',
-      textContent: 'username',
-      placeholder: 'Make it fun!',
-      autoFocus: true,
-    }
-    const password = {
-      name: 'password',
-      label: 'Password',
-      value: this.state.password,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'next',
-      keyboard: 'default',
-      textContent: 'password',
-      placeholder: 'Make it difficult!',
-      autoFocus: false,
-    }
-    const phoneNumber = {
-      name: 'phone',
-      label: 'Phone Number',
-      value: this.state.phone,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'done',
-      keyboard: 'phone-pad',
-      textContent: 'telephoneNumber',
-      placeholder: 'Make it!',
-      autoFocus: false,
-    }
-    this.inputs = [username, password, phoneNumber]
-
   }
 
   handleChange(obj) {
@@ -73,15 +34,26 @@ export default class AuthForm extends Component {
 
   validateInput(obj) {
     for (key in obj) {
-      const notInErrors = ! this.state.errors.includes(key)
+      const i = this.state.errors.indexOf(key)
       const length = obj[key].trim().length
 
-      if (notInErrors) {
-        if ((key == 'username' && length < 3)
-          || (key == 'password' && length < 7)
-          || (key == 'phone' && length != 10)
-        ){
-          this.setState( prevState => prevState.errors.push(key) )
+      if ((key == 'username' && length == 0)
+        || (key == 'password' && length < 7)
+        || (key == 'phone' && length != 10)
+      ){
+        // add to errors
+        if (i == -1) {
+          this.setState( prevState => {
+            return { errors: [...prevState.errors, key] }
+          })
+        }
+      }
+      else {
+        // remove from errors
+        if (i > -1) {
+          this.setState( prevState => {
+            return { errors: prevState.errors.splice(i, 1) }
+          })
         }
       }
     }
@@ -95,22 +67,53 @@ export default class AuthForm extends Component {
     return (
       <Fragment>
 
-        { this.inputs.map((prop, i) => (
-            <AuthInput
-              name={ prop.name }
-              label={ prop.label }
-              value={ prop.value }
-              handleChange={ prop.handleChange }
-              handleBlur={ prop.handleBlur }
-              returnKey={ prop.returnKey }
-              keyboard={ prop.keyboard }
-              textContent={ prop.textContent }
-              placeholder={ prop.placeholder }
-              autoFocus={ prop.autoFocus }
-              hasError={ this.state.errors.includes(prop.name) }
-              key={i}
-            />
-        )) }
+        <AuthInput
+          name='username'
+          label='Username'
+          value={ this.state.username }
+          handleChange={ this.handleChange }
+          handleBlur={ this.validateInput }
+          returnKey='next'
+          keyboard='default'
+          textContent='username'
+          placeholder='Make it fun!'
+          autoFocus={ true }
+          autoCapitalize='sentences'
+          hasError={ this.state.errors.indexOf('username') > -1 }
+          errorMessage='Please add a name. We need to call you something.'
+        />
+
+        <AuthInput
+          name='password'
+          label='Password'
+          value={ this.state.password }
+          handleChange={ this.handleChange }
+          handleBlur={ this.validateInput }
+          returnKey='next'
+          keyboard='default'
+          textContent='password'
+          placeholder='Make it difficult!'
+          autoFocus={ false }
+          autoCapitalize='none'
+          hasError={ this.state.errors.indexOf('password') > -1 }
+          errorMessage='Password needs to be at least 7 characters.'
+        />
+
+        <AuthInput
+          name='phone'
+          label='Phone Number'
+          value={ this.state.phone }
+          handleChange={ this.handleChange }
+          handleBlur={ this.validateInput }
+          returnKey='done'
+          keyboard='phone-pad'
+          textContent='telephoneNumber'
+          placeholder='To verify that you are in fact you...'
+          autoFocus={ false }
+          autoCapitalize='none'
+          hasError={ this.state.errors.indexOf('phone') > -1 }
+          errorMessage="That's not a number! 10 characters please."
+        />
 
         <TouchableOpacity
           onPress={ this.handleSubmit }

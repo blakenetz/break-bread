@@ -16,6 +16,7 @@ const AuthInput = ({
     placeholder,
     autoFocus,
     hasError,
+    errorMessage,
   }) => {
   return (
     <Fragment>
@@ -23,7 +24,7 @@ const AuthInput = ({
         {label}
       </Text>
       <TextInput
-        style={ styles.input }
+        style={ hasError ? styles.inputError : styles.input }
         value={ value }
         onChangeText={ text => handleChange({ [name]: text }) }
         onBlur={ e => handleBlur({ [name]: e.nativeEvent.text }) }
@@ -35,6 +36,9 @@ const AuthInput = ({
         placeholder={ placeholder }
         autoFocus={ autoFocus }
       />
+      <Text style={ styles.errorMessage }>
+        { hasError ? errorMessage : '' }
+      </Text>
     </Fragment>
   )
 }
@@ -51,6 +55,7 @@ AuthInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   autoFocus: PropTypes.bool.isRequired,
   hasError: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 }
 
 export default AuthInput

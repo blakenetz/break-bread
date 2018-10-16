@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native'
 
+const bgColor = '#62fcbe'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#62fcbe',
+    backgroundColor: bgColor,
     justifyContent: 'center',
   },
 
@@ -30,14 +32,17 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: '#FFF',
+    borderColor: bgColor,
+    borderWidth: 5,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
-    marginBottom: 20,
   },
 
   inputError: {
-    backgroundColor: '#F00',
+    backgroundColor: '#FFF',
+    borderColor: '#F00',
+    borderWidth: 5,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
@@ -48,7 +53,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: '#FE638F',
     fontSize: 15,
-  }
+  },
+
+  errorMessage: {
+    marginLeft: 10,
+    marginBottom: 20,
+    marginTop: -15,
+    color: 'black',
+    fontSize: 15,
+  },
+
 })
 
 export default styles

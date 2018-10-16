@@ -3,6 +3,7 @@ React Native app for organizing family dinners
 
 ## 🍞 TOOLS
 * React Native
+* Amplify
 
 ## 🍞 FEATURES
 * Able to set date for next dinner
