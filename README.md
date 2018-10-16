@@ -1,11 +1,10 @@
-# FAM DIN
+# Break Bread.
 React Native app for organizing family dinners
 
-## TOOLS
+## 🍞 TOOLS
 * React Native
-* TBD
 
-## FEATURES
+## 🍞 FEATURES
 * Able to set date for next dinner
 * for above: able to access people's Google Calendar (??)
 * Able to set random theme for next dinner from library of themes (region, country, diet-type, holiday, etc.)

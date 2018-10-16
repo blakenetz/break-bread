@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "famdin",
-    "description": "This project is really great.",
-    "slug": "famdin",
+    "name": "Break Bread.",
+    "description": "Organize dinners with family and friends. Have fun.",
+    "slug": "break-bread",
     "privacy": "public",
     "sdkVersion": "30.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": ["ios"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

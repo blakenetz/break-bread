@@ -36,6 +36,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  inputError: {
+    backgroundColor: '#F00',
+    padding: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
+  },
+
   label: {
     marginLeft: 10,
     color: '#FE638F',
