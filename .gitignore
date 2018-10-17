@@ -4,3 +4,4 @@ npm-debug.*
 amplify/
 .amplifyrc
 aws-exports.js
+notes.txt

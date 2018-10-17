@@ -13,21 +13,15 @@ export default class AuthView extends Component {
   constructor(props){
     super(props)
     this.state = {
-      mode: null,
+      mode: null, // 'signup', 'login', 'verify'
     }
 
-    this.handleLoginPress = this.handleLoginPress.bind(this)
-    this.handleSignupPress = this.handleSignupPress.bind(this)
+    this.updateAuthMode = this.updateAuthMode.bind(this)
   }
 
-  handleLoginPress() {
-    this.setState({ mode: 'login' })
+  updateAuthMode(mode) {
+    this.setState({ mode: mode })
   }
-
-  handleSignupPress() {
-    this.setState({ mode: 'signup' })
-  }
-
 
   render() {
     return (
@@ -38,10 +32,14 @@ export default class AuthView extends Component {
 
         { this.state.mode == null
           ? <AuthButtons
-              handleLoginPress={ this.handleLoginPress }
-              handleSignupPress={ this.handleSignupPress }
+              handlePress={ this.updateAuthMode }
             />
-          : <AuthForm mode={this.state.mode} /> }
+          : <AuthForm
+              mode={this.state.mode}
+              updateAuthMode={ this.updateAuthMode }
+              updateParentState={ this.props.handleChildState }
+            />
+        }
 
       </View>
     )

@@ -13,10 +13,12 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      signedup: false,
-      verified: false,
       loggedin: false,
+      username: '',
     }
+
+    // bind methods
+    this.handleChildState = this.handleChildState.bind(this)
   }
 
   async componentWillMount() {
@@ -26,6 +28,12 @@ export default class App extends Component {
       .catch(err => this.setState({ loggedin: false }))
   }
 
+  handleChildState(obj) {
+    for (key in obj) {
+      this.setState({ [key]: obj[key] })
+    }
+  }
+
   render() {
     return (
       this.state.loggedin
@@ -33,6 +41,7 @@ export default class App extends Component {
         : <AuthView
             signedup={ this.state.signedup }
             verified={ this.state.verified }
+            handleChildState={ this.handleChildState }
           />
     )
   }

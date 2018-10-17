@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Text, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 

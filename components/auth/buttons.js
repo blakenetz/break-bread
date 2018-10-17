@@ -1,35 +1,35 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Text,
   TouchableOpacity
 } from 'react-native'
+import PropTypes from 'prop-types'
 
 import styles from '../../assets/styles'
 
-export default class AuthButtons extends Component {
-  constructor(props){
-    super(props)
-    this.state = {}
-  }
+const AuthButtons = ( handlePress ) => {
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={ () => handlePress.handlePress('login') }
+        style={ styles.button }
+      >
+        <Text>Log in!</Text>
+      </TouchableOpacity>
 
-  render() {
-    return (
-      <View>
-        <TouchableOpacity
-          onPress={ this.props.handleLoginPress }
-          style={ styles.button }
-        >
-          <Text>Log in!</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={ this.props.handleSignupPress }
-          style={ styles.button }
-        >
-          <Text>Sign up!</Text>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+      <TouchableOpacity
+        onPress={ () => handlePress.handlePress('signup') }
+        style={ styles.button }
+      >
+        <Text>Sign up!</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
+
+AuthButtons.propTypes = {
+  handlePress: PropTypes.func.isRequired,
+}
+
+export default AuthButtons
