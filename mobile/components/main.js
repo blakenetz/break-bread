@@ -1,13 +1,4 @@
 import React, { Component } from 'react'
-import {
-  Text,
-  View,
-  DatePickerIOS,
-  TouchableOpacity,
-} from 'react-native'
-
-import styles from '../assets/styles'
-
 
 export default class Main extends Component {
   constructor(props) {

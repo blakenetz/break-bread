@@ -1,8 +1,8 @@
 # Break Bread.
-React Native app for organizing family dinners
+an app for organizing family dinners
 
 ## 🍞 TOOLS
-* React Native
+* React and React Native (although I hate FB, I don't know a better solution...)
 * Amplify
 
 ## 🍞 FEATURES

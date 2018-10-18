@@ -1,0 +1,60 @@
+{
+  "name": "break-bread",
+  "version": "1.0.0",
+  "description": "Planning app for fun family/friend dinners",
+  "keywords": [
+    "organizing",
+    "planning",
+    "dinner",
+    "food",
+    "meal planning",
+    "meal prep",
+    "gatherings"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blakeface/break-bread"
+  },
+  "bugs": {
+    "url": "https://github.com/blakeface/break-bread/issues"
+  },
+  "license": "MIT",
+  "author": "Blake Netzeband <blake.netzeband@gmail.com> (https://www.blakenetzeband.com)",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": false,
+  "dependencies": {
+    "aws-amplify": "^1.1.7",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "2.0.5"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.3",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.21.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  }
+}

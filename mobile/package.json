@@ -1,5 +1,5 @@
 {
-  "name": "famdin",
+  "name": "break-bread",
   "version": "1.0.0",
   "description": "Planning app for fun family/friend dinners",
   "keywords": [
@@ -13,10 +13,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/blakeface/famdin"
+    "url": "https://github.com/blakeface/break-bread"
   },
   "bugs": {
-    "url": "https://github.com/blakeface/famdin/issues"
+    "url": "https://github.com/blakeface/break-bread/issues"
   },
   "license": "MIT",
   "author": "Blake Netzeband <blake.netzeband@gmail.com> (https://www.blakenetzeband.com)",
