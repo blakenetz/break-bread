@@ -7,8 +7,10 @@ import {
 } from 'react-native'
 import Auth from '@aws-amplify/auth'
 
-import styles from '../../assets/styles'
+// views
+import inputData from './inputData'
 import AuthInput from './inputs'
+import styles from '../../assets/styles'
 
 export default class AuthForm extends Component {
   constructor(props){
@@ -17,85 +19,25 @@ export default class AuthForm extends Component {
       username: '',
       password: '',
       phone: '',
-      verificationCode: '',
+      verify: '',
       errors: [],
     }
 
-    // event handlers
+    // bind methods
     this.handleChange = this.handleChange.bind(this)
     this.validateInput = this.validateInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleError = this.handleError.bind(this)
+    this.updateInputs = this.updateInputs.bind(this)
 
-    // inputs
+    // inputs (updated in componentDidMount)
     this.inputs = []
-    const username = {
-      name: 'username',
-      label: 'Username',
-      value: this.state.username,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'next',
-      keyboard: 'default',
-      textContent: 'username',
-      placeholder: 'Make it fun!',
-      autoFocus: true,
-      autoCapitalize: 'sentences',
-      errorMessage: 'Please add a name. We need to call you something.',
+    for (input in inputData) {
+      inputData[input].value = this.state[inputData[input].name]
+      inputData[input].handleChange = this.handleChange
+      inputData[input].handleBlur = this.validateInput
     }
-    const password = {
-      name: 'password',
-      label: 'Password',
-      value: this.state.password,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'next',
-      keyboard: 'default',
-      textContent: 'password',
-      placeholder: 'Make it difficult!',
-      autoFocus: false,
-      autoCapitalize: 'none',
-      errorMessage: 'Password needs to be at least 7 characters.',
-    }
-    const phone = {
-      name: 'phone',
-      label: 'Phone Number',
-      value: this.state.phone,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'done',
-      keyboard: 'phone-pad',
-      textContent: 'telephoneNumber',
-      placeholder: 'To verify that you are in fact you...',
-      autoFocus: false,
-      autoCapitalize: 'none',
-      errorMessage: "That's not a number! 10 characters please.",
-    }
-
-    const verify = {
-      name: 'verify',
-      label: 'Verification Code',
-      value: this.state.verificationCode,
-      handleChange: this.handleChange,
-      handleBlur: this.validateInput,
-      returnKey: 'done',
-      keyboard: 'default',
-      textContent: 'none',
-      placeholder: 'Expect a text message.',
-      autoFocus: true,
-      autoCapitalize: 'none',
-      hasError: false,
-      errorMessage: null,
-    }
-
-    switch (this.props.mode) {
-      case ('signup'):
-        this.inputs = [username, password, phone]; break;
-      case ('login'):
-        this.inputs = [username, password]; break;
-      case ('verify'):
-        this.inputs = [verify]; break;
-    }
+    this.updateInputs()
   }
 
   handleError(err) {
@@ -179,6 +121,23 @@ export default class AuthForm extends Component {
           })
         })
         .catch(err => this.handleError(err))
+    }
+  }
+
+  updateInputs() {
+    switch (this.props.mode) {
+      case ('signup'):
+        this.inputs = [inputData.username, inputData.password, inputData.phone]; break;
+      case ('login'):
+        this.inputs = [inputData.username, inputData.password]; break;
+      case ('verify'):
+        this.inputs = [inputData.verify]; break;
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.mode !== this.props.mode) {
+      this.updateInputs()
     }
   }
 
