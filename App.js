@@ -17,17 +17,23 @@ export default class App extends Component {
     this.state = {
       loggedin: false,
       username: '',
+      fontLoaded: false,
     }
 
     // bind methods
     this.updateAppState = this.updateAppState.bind(this)
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     // is user already logged in?
     await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ loggedin: true }))
       .catch(err => this.setState({ loggedin: false }))
+    // load fonts
+    await Font.loadAsync({
+      'traveling-typewriter': require('./assets/fonts/TravelingTypewriter.ttf'),
+    })
+    this.setState({ fontLoaded: true })
   }
 
   updateAppState(obj) {
@@ -38,13 +44,15 @@ export default class App extends Component {
 
   render() {
     return (
-      this.state.loggedin
-        ? <Main />
-        : <AuthView
-            signedup={ this.state.signedup }
-            verified={ this.state.verified }
-            updateAppState={ this.updateAppState }
-          />
+      this.state.fontLoaded ? (
+        this.state.loggedin
+          ? <Main />
+          : <AuthView
+              signedup={ this.state.signedup }
+              verified={ this.state.verified }
+              updateAppState={ this.updateAppState }
+            />
+      ) : null
     )
   }
 }

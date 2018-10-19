@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    textAlign: 'center',
+    fontFamily: 'traveling-typewriter',
     fontSize: 30,
+    textAlign: 'center',
     padding: 10,
   },
 
