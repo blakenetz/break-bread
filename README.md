@@ -13,3 +13,16 @@ React Native app for organizing family dinners
 * Able to invite people to next dinner (email, phone number)
 * for above: able to access users contacts
 * this needs to be fun, so add fun stuff to it!
+
+## 🍞 COMMANDS
+Typical NPM commands:
+* `$ npm start`
+* `$ npm run ios`
+
+Or Expo commands:
+* `$ expo start`
+* `$ expo start --ios`
+
+## 🍞 OTHER TOASTY STUFF:
+* There's a few branches because I wasn't sure on which direction I should take this project
+* I think the art is cool. Plus it's all Blake Netzeband originals 😘

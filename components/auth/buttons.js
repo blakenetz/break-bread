@@ -8,18 +8,18 @@ import PropTypes from 'prop-types'
 
 import styles from '../../assets/styles'
 
-const AuthButtons = ( handlePress ) => {
+const AuthButtons = ({ handlePress }) => {
   return (
     <View>
       <TouchableOpacity
-        onPress={ () => handlePress.handlePress('login') }
+        onPress={ () => handlePress({ mode: 'login'}) }
         style={ styles.button }
       >
         <Text>Log in!</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={ () => handlePress.handlePress('signup') }
+        onPress={ () => handlePress({ mode: 'signup'}) }
         style={ styles.button }
       >
         <Text>Sign up!</Text>

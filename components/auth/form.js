@@ -151,8 +151,8 @@ export default class AuthForm extends Component {
         .then(data => {
           console.log('signup success!', data)
           if (data.user) {
-            this.props.updateAuthMode('verify')
-            this.props.updateParentState({
+            this.props.updateFormState({
+              mode: 'verify',
               username: this.state.username,
             })
           }
@@ -161,8 +161,8 @@ export default class AuthForm extends Component {
         .catch(err => {
           this.handleError(err)
           // user already exists
-          this.props.updateAuthMode('login')
-          this.props.updateParentState({
+          this.props.updateFormState({
+            mode: 'login',
             message: err.code,
           })
         })
@@ -171,7 +171,13 @@ export default class AuthForm extends Component {
     // LOGIN
     else {
       await Auth.signIn(this.state.username, this.state.password)
-        .then(data => console.log('data from signIn:', data))
+        .then(data => {
+          console.log('signin success!', data)
+          this.props.updateFormState({
+            loggedin: true,
+            username: this.state.username,
+          })
+        })
         .catch(err => this.handleError(err))
     }
   }
@@ -201,7 +207,7 @@ export default class AuthForm extends Component {
         }) }
 
         <TouchableOpacity
-          onPress={ () => this.props.updateAuthMode(null) }
+          onPress={ () => this.props.updateFormState({ mode: null} ) }
           style={ styles.button }
         >
           <Text>Retreat!</Text>

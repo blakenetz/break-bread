@@ -16,11 +16,20 @@ export default class AuthView extends Component {
       mode: null, // 'signup', 'login', 'verify'
     }
 
-    this.updateAuthMode = this.updateAuthMode.bind(this)
+    this.updateFormState = this.updateFormState.bind(this)
   }
 
-  updateAuthMode(mode) {
-    this.setState({ mode: mode })
+  updateFormState(obj) {
+    for (key in obj) {
+      // setState for the AuthView component
+      if ( Object.keys(this.state).indexOf(key) > -1 ){
+        this.setState({ [key]: obj[key] })
+      }
+      // pass it along to the App component
+      else {
+        this.props.updateAppState({ [key]: obj[key] })
+      }
+    }
   }
 
   render() {
@@ -32,12 +41,11 @@ export default class AuthView extends Component {
 
         { this.state.mode == null
           ? <AuthButtons
-              handlePress={ this.updateAuthMode }
+              handlePress={ this.updateFormState }
             />
           : <AuthForm
               mode={this.state.mode}
-              updateAuthMode={ this.updateAuthMode }
-              updateParentState={ this.props.handleChildState }
+              updateFormState={ this.updateFormState }
             />
         }
 

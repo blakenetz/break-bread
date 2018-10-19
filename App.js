@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import { Font } from 'expo'
 
+// views
 import AuthView from './components/auth/view'
 import Main from './components/main'
 
@@ -18,7 +20,7 @@ export default class App extends Component {
     }
 
     // bind methods
-    this.handleChildState = this.handleChildState.bind(this)
+    this.updateAppState = this.updateAppState.bind(this)
   }
 
   async componentWillMount() {
@@ -28,7 +30,7 @@ export default class App extends Component {
       .catch(err => this.setState({ loggedin: false }))
   }
 
-  handleChildState(obj) {
+  updateAppState(obj) {
     for (key in obj) {
       this.setState({ [key]: obj[key] })
     }
@@ -41,7 +43,7 @@ export default class App extends Component {
         : <AuthView
             signedup={ this.state.signedup }
             verified={ this.state.verified }
-            handleChildState={ this.handleChildState }
+            updateAppState={ this.updateAppState }
           />
     )
   }

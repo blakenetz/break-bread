@@ -9,7 +9,7 @@
     "version": "1.0.0",
     "githubUrl": "https://github.com/blakeface/break-bread",
     "orientation": "portrait",
-    "icon": "./assets/icon.png", // should be 1024x1024 png file
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
