@@ -29,6 +29,7 @@ export default class App extends Component {
     await Auth.currentAuthenticatedUser()
       .then(user => this.setState({ loggedin: true }))
       .catch(err => this.setState({ loggedin: false }))
+
     // load fonts
     await Font.loadAsync({
       'traveling-typewriter': require('./assets/fonts/TravelingTypewriter.ttf'),

@@ -9,11 +9,11 @@
     "version": "1.0.0",
     "githubUrl": "https://github.com/blakeface/break-bread",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffc658"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
