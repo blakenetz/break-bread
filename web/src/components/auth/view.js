@@ -21,7 +21,6 @@ class AuthView extends Component {
   render() {
     return (
       <section>
-        <h1>break bread.</h1>
 
         { this.state.mode == null
           ? <AuthButtons handlePress={ this.updateViewState } />

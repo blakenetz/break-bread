@@ -62,6 +62,11 @@ module.exports = {
 			from: '../assets/images',
 			to: 'assets/images',
 			toType: 'dir'
-		}])
+		}]),
+		new CopyWebpackPlugin([{
+			from: '../assets/fonts',
+			to: 'assets/fonts',
+			toType: 'dir'
+		}]),
 	]
 }

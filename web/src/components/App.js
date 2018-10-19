@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 // views
 import AuthView from './auth/view'
+
+// styles
+import globalStyle from '../stylesheets/global.css'
 
 // AWS Amplify
 import Amplify, { Auth } from 'aws-amplify'
@@ -38,11 +41,16 @@ class App extends Component {
 
   render() {
     return (
-      this.state.loggedin
-          ? null
-          : <AuthView
-              updateAppState={ this.updateAppState }
-            />
+      <Fragment>
+        <h1>break bread.</h1>
+        <img src="/assets/images/splash.png" alt="collage of a dinner party" />
+
+        { this.state.loggedin
+            ? null
+            : <AuthView
+                updateAppState={ this.updateAppState }
+              /> }
+      </Fragment>
     )
   }
 }
