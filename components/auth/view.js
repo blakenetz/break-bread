@@ -14,6 +14,7 @@ export default class AuthView extends Component {
     super(props)
     this.state = {
       mode: null, // 'signup', 'login', 'verify'
+      message: '',
     }
 
     this.updateFormState = this.updateFormState.bind(this)
@@ -41,6 +42,12 @@ export default class AuthView extends Component {
         <Text style={ styles.title }>
           Break Bread.
         </Text>
+
+        { this.state.message.length > 0
+            ? <Text style={ styles.message }>
+                { this.state.message }
+              </Text>
+            : null }
 
         { this.state.mode == null
           ? <AuthButtons

@@ -57,7 +57,7 @@ export default class Main extends Component {
       <View style={ styles.container }>
 
         <Text style={ styles.title }>nom nom nom!</Text>
-        <Text style={ styles.nextMeal }>
+        <Text style={ styles.message }>
           Next family dinner is {this.formatDate(this.state.chosenDate)}
         </Text>
 

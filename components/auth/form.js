@@ -33,9 +33,10 @@ export default class AuthForm extends Component {
     // inputs (updated in componentDidMount)
     this.inputs = []
     for (input in inputData) {
-      inputData[input].value = this.state[inputData[input].name]
-      inputData[input].handleChange = this.handleChange
-      inputData[input].handleBlur = this.validateInput
+      const inputObj = inputData[input]
+      inputObj.value = this.state[ inputObj.name ]
+      inputObj.handleChange = this.handleChange
+      inputObj.handleBlur = this.validateInput
     }
     this.updateInputs()
   }
@@ -95,6 +96,7 @@ export default class AuthForm extends Component {
           if (data.user) {
             this.props.updateFormState({
               mode: 'verify',
+              message: 'Congrats! Expect a text message with your verification code 🥠',
               username: this.state.username,
             })
           }
@@ -105,19 +107,34 @@ export default class AuthForm extends Component {
           // user already exists
           this.props.updateFormState({
             mode: 'login',
-            message: err.code,
+            message: `Well crud... something bad happened: ${err.code}`,
           })
         })
     }
 
     // LOGIN
-    else {
+    else if (this.props.mode == 'login') {
       await Auth.signIn(this.state.username, this.state.password)
         .then(data => {
           console.log('signin success!', data)
           this.props.updateFormState({
             loggedin: true,
+            message: '',
             username: this.state.username,
+          })
+        })
+        .catch(err => this.handleError(err))
+    }
+
+    // VERIFY
+    else {
+      await Auth.confirmSignUp(this.state.username, this.state.verify, {
+        forceAliasCreation: true
+        })
+        .then( data => {
+          console.log('verify success!', data)
+          this.props.updateFormState({
+            loggedin: (data == 'SUCCESS')
           })
         })
         .catch(err => this.handleError(err))
@@ -132,6 +149,8 @@ export default class AuthForm extends Component {
         this.inputs = [inputData.username, inputData.password]; break;
       case ('verify'):
         this.inputs = [inputData.verify]; break;
+      case ('re-verify'):
+        this.inputs = [inputData.username, inputData.verify]; break;
     }
   }
 
@@ -173,11 +192,20 @@ export default class AuthForm extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={ () => this.props.updateFormState({ mode: null} ) }
+          onPress={ () => this.props.updateFormState({ mode: null }) }
           style={ styles.formButtonSecondary }
         >
           <Text>Retreat!</Text>
         </TouchableOpacity>
+
+        { this.state.mode !== 'verify'
+            ? <Text
+                onPress={ () => this.props.updateFormState({ mode: 're-verify' }) }
+                style={ styles.link }
+              >
+                Need to verify your account?
+              </Text>
+            : null }
 
       </Fragment>
     )

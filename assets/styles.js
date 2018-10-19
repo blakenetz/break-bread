@@ -18,8 +18,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  nextMeal: {
+  message: {
     textAlign: 'center',
+  },
+
+  link: {
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
 
   button: {
