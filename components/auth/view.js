@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  View,
+  ImageBackground,
   Text,
   TouchableOpacity,
 } from 'react-native'
@@ -34,7 +34,10 @@ export default class AuthView extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <ImageBackground
+        source={ require('../../assets/images/blue-pinapple.png') }
+        style={ styles.imageBackground }
+      >
         <Text style={ styles.title }>
           Break Bread.
         </Text>
@@ -49,7 +52,7 @@ export default class AuthView extends Component {
             />
         }
 
-      </View>
+      </ImageBackground>
     )
   }
 }

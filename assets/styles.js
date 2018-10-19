@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native'
 
-const bgColor = '#62fcbe'
+const seafoam = '#62fcbe'
+const blue = '#43A8B1'
+const red = '#FF443A'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: bgColor,
+    backgroundColor: seafoam,
     justifyContent: 'center',
   },
 
@@ -21,7 +23,29 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#FE638F',
+    backgroundColor: red,
+    alignItems: 'center',
+    padding: 10,
+    margin: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+
+  formButtonPrimary: {
+    backgroundColor: seafoam,
+    alignItems: 'center',
+    padding: 10,
+    margin: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+
+  formButtonSecondary: {
+    backgroundColor: blue,
     alignItems: 'center',
     padding: 10,
     margin: 10,
@@ -33,7 +57,7 @@ const styles = StyleSheet.create({
 
   input: {
     backgroundColor: '#FFF',
-    borderColor: bgColor,
+    borderColor: seafoam,
     borderWidth: 5,
     padding: 10,
     marginLeft: 10,
@@ -42,7 +66,7 @@ const styles = StyleSheet.create({
 
   inputError: {
     backgroundColor: '#FFF',
-    borderColor: '#F00',
+    borderColor: red,
     borderWidth: 5,
     padding: 10,
     marginLeft: 10,
@@ -52,7 +76,7 @@ const styles = StyleSheet.create({
 
   label: {
     marginLeft: 10,
-    color: '#FE638F',
+    color: '#000',
     fontSize: 15,
   },
 
@@ -62,6 +86,13 @@ const styles = StyleSheet.create({
     marginTop: -15,
     color: 'black',
     fontSize: 15,
+  },
+
+  imageBackground: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    justifyContent: 'center',
   },
 
 })

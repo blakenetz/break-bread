@@ -207,17 +207,17 @@ export default class AuthForm extends Component {
         }) }
 
         <TouchableOpacity
-          onPress={ () => this.props.updateFormState({ mode: null} ) }
-          style={ styles.button }
+          onPress={ this.handleSubmit }
+          style={ styles.formButtonPrimary }
         >
-          <Text>Retreat!</Text>
+          <Text>Submit!</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={ this.handleSubmit }
-          style={ styles.button }
+          onPress={ () => this.props.updateFormState({ mode: null} ) }
+          style={ styles.formButtonSecondary }
         >
-          <Text>Submit!</Text>
+          <Text>Retreat!</Text>
         </TouchableOpacity>
 
       </Fragment>
