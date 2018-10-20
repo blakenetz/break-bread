@@ -26,3 +26,9 @@ Or Expo commands:
 ## 🍞 OTHER TOASTY STUFF:
 * There's a few branches because I wasn't sure on which direction I should take this project
 * I think the art is cool. Plus it's all Blake Netzeband originals 😘
+
+![alt text][splash]
+![alt text][icon]
+
+[splash]: https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/splash.png "Splash page"
+[icon]: https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/icon.png "icon"
