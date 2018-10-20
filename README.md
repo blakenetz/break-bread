@@ -27,8 +27,7 @@ Or Expo commands:
 * There's a few branches because I wasn't sure on which direction I should take this project
 * I think the art is cool. Plus it's all Blake Netzeband originals 😘
 
-![alt text][splash]
-![alt text][icon]
 
-[splash]: https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/splash.png "Splash page"
-[icon]: https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/icon.png "icon"
+<img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/splash.png" alt="splash page" width="300" />
+<img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/icon.png" alt="icon" width="300" />
+<img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/blue-pinapple.png" alt="blue pinapple" width="300" />
