@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
+  ImageBackground,
   Text,
-  View,
   DatePickerIOS,
   TouchableOpacity,
 } from 'react-native'
@@ -54,7 +54,10 @@ export default class Main extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <ImageBackground
+        source={ require('../assets/images/octopus.png') }
+        style={ styles.imageBackground }
+      >
 
         <Text style={ styles.title }>nom nom nom!</Text>
         <Text style={ styles.message }>
@@ -90,7 +93,7 @@ export default class Main extends Component {
           ? <Text>THEME PICKER PLACEHOLDER</Text>
           : null }
 
-      </View>
+      </ImageBackground>
     )
   }
 }
