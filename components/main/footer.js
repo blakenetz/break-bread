@@ -1,7 +1,6 @@
 import React from 'react'
 import {
 	NavigatorIOS,
-
 } from 'react-native'
 
 import styles from '../../assets/styles'

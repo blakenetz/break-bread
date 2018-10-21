@@ -4,6 +4,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Image,
 } from 'react-native'
 import Auth from '@aws-amplify/auth'
 
@@ -24,6 +26,7 @@ export default class AuthForm extends Component {
       phone: '',
       verify: '',
       errors: [],
+      isExpanded: false,
     }
 
     // bind methods
@@ -32,6 +35,7 @@ export default class AuthForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleError = this.handleError.bind(this)
     this.updateInputs = this.updateInputs.bind(this)
+    this.handleHomeIconPress = this.handleHomeIconPress.bind(this)
 
     // inputs (updated in componentDidMount)
     this.inputs = []
@@ -54,6 +58,12 @@ export default class AuthForm extends Component {
         [key]: (key == 'phone') ? obj[key].trim().replace(/\D/g,'') : obj[key].trim()
       })
     }
+  }
+
+  handleHomeIconPress() {
+    this.setState(prevState => {
+      return { isExpanded: !prevState.isExpanded }
+    })
   }
 
   validateInput(obj) {
@@ -195,13 +205,6 @@ export default class AuthForm extends Component {
           <Text>Submit!</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={ () => this.props.updateFormState({ mode: null }) }
-          style={ styles.formButtonSecondary }
-        >
-          <Text>Retreat!</Text>
-        </TouchableOpacity>
-
         { this.state.mode !== 'verify'
             ? <Text
                 onPress={ () => this.props.updateFormState({ mode: 're-verify' }) }
@@ -210,6 +213,29 @@ export default class AuthForm extends Component {
                 Need to verify your account?
               </Text>
             : null }
+
+        <View
+          style={ [styles.homeMenu, {width: this.state.isExpanded ? '87%' : 58 }] }
+        >
+          <Text
+            style={ styles.homeMenuText }
+            onPress={ () => this.props.updateFormState({ mode: null }) }
+          >
+            { this.state.isExpanded ? 'Go Home!' : '' }
+          </Text>
+        </View>
+
+        <TouchableWithoutFeedback
+          accessibilityLabel='hamburger menu'
+          accessibilityRole='button'
+          accessible={ true }
+          onPress={ this.handleHomeIconPress }
+        >
+          <Image
+            source={ require('../../assets/images/rice-icon.png') }
+            style={ styles.homeIcon }
+          />
+        </TouchableWithoutFeedback>
 
       </Fragment>
     )

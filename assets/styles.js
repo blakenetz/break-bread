@@ -49,17 +49,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
   },
 
-  formButtonSecondary: {
-    backgroundColor: blue,
-    alignItems: 'center',
-    padding: 10,
-    margin: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-
   input: {
     backgroundColor: '#FFF',
     borderColor: seafoam,
@@ -98,6 +87,34 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     justifyContent: 'center',
+  },
+
+  homeIcon: {
+    resizeMode: 'contain',
+    position: 'absolute',
+    bottom: '3%',
+    right: '3%',
+  },
+
+  homeMenu: {
+    position: 'absolute',
+    bottom: '3%',
+    right: '6%',
+    backgroundColor: seafoam,
+    height: 58,
+    width: 58,
+    borderTopRightRadius: 90,
+    borderTopLeftRadius: 90,
+    borderBottomRightRadius: 90,
+    borderBottomLeftRadius: 90,
+    justifyContent: 'center',
+  },
+
+  homeMenuText: {
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    fontFamily: 'traveling-typewriter',
+    fontSize: 20,
   },
 
 })

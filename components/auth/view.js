@@ -3,6 +3,7 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
+
 } from 'react-native'
 
 import styles from '../../assets/styles'
