@@ -4,7 +4,7 @@ import { Font } from 'expo'
 
 // views
 import AuthView from './components/auth/view'
-import Main from './components/main'
+import MainView from './components/main/view'
 
 // AWS Amplify
 import Amplify, { Auth } from 'aws-amplify'
@@ -16,7 +16,6 @@ export default class App extends Component {
     super(props)
     this.state = {
       loggedin: false,
-      username: '',
       fontLoaded: false,
     }
 
@@ -47,7 +46,7 @@ export default class App extends Component {
     return (
       this.state.fontLoaded ? (
         this.state.loggedin
-          ? <Main />
+          ? <MainView />
           : <AuthView
               signedup={ this.state.signedup }
               verified={ this.state.verified }

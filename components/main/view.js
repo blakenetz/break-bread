@@ -6,10 +6,9 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import styles from '../assets/styles'
+import styles from '../../assets/styles'
 
-
-export default class Main extends Component {
+export default class MainView extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -55,7 +54,7 @@ export default class Main extends Component {
   render() {
     return (
       <ImageBackground
-        source={ require('../assets/images/octopus.png') }
+        source={ require('../../assets/images/octopus.png') }
         style={ styles.imageBackground }
       >
 

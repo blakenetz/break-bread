@@ -19,7 +19,7 @@ const inputData = {
     placeholder: 'Make it difficult!',
     autoFocus: false,
     autoCapitalize: 'none',
-    errorMessage: 'Password needs to be at least 7 characters.',
+    errorMessage: 'Password needs to be at least 7 characters and not obvious.',
   },
   phone: {
     name: 'phone',

@@ -12,6 +12,9 @@ import inputData from './inputData'
 import AuthInput from './inputs'
 import styles from '../../assets/styles'
 
+// helpers
+import passwordBlackList from '../../assets/data/password-blacklist'
+
 export default class AuthForm extends Component {
   constructor(props){
     super(props)
@@ -33,12 +36,11 @@ export default class AuthForm extends Component {
     // inputs (updated in componentDidMount)
     this.inputs = []
     for (input in inputData) {
-      const inputObj = inputData[input]
-      inputObj.value = this.state[ inputObj.name ]
-      inputObj.handleChange = this.handleChange
-      inputObj.handleBlur = this.validateInput
+      inputData[input].handleChange = this.handleChange
+      inputData[input].handleBlur = this.validateInput
     }
     this.updateInputs()
+
   }
 
   handleError(err) {
@@ -47,18 +49,22 @@ export default class AuthForm extends Component {
 
   handleChange(obj) {
     for (key in obj) {
-      this.setState({ [key]: obj[key] })
+      this.setState({
+        // remove non-digit characters from phone number
+        [key]: (key == 'phone') ? obj[key].trim().replace(/\D/g,'') : obj[key].trim()
+      })
     }
   }
 
   validateInput(obj) {
     for (key in obj) {
       const i = this.state.errors.indexOf(key)
-      const length = obj[key].trim().length
+      const val = obj[key]
 
-      if ((key == 'username' && length == 0)
-        || (key == 'password' && length < 8)
-        || (key == 'phone' && length != 10)
+      if (
+        (key == 'username' && val.length == 0)
+        || (key == 'password' && val.length < 8 && passwordBlackList.indexOf(val) > -1)
+        || (key == 'phone' && val.length != 10)
       ){
         // add to errors
         if (i == -1) {
@@ -119,8 +125,6 @@ export default class AuthForm extends Component {
           console.log('signin success!', data)
           this.props.updateFormState({
             loggedin: true,
-            message: '',
-            username: this.state.username,
           })
         })
         .catch(err => this.handleError(err))
@@ -154,7 +158,7 @@ export default class AuthForm extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.mode !== this.props.mode) {
       this.updateInputs()
     }
@@ -168,7 +172,7 @@ export default class AuthForm extends Component {
             <AuthInput
               name={ input.name }
               label={ input.label }
-              value={ input.value }
+              value={ this.state[input.name] }
               handleChange={ input.handleChange }
               handleBlur={ input.handleBlur }
               returnKey={ input.returnKey }
