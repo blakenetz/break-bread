@@ -12,6 +12,7 @@ import Auth from '@aws-amplify/auth'
 // views
 import inputData from './inputData'
 import AuthInput from './inputs'
+import Menu from '../shared/menu'
 import styles from '../../assets/styles'
 
 // helpers
@@ -35,7 +36,6 @@ export default class AuthForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleError = this.handleError.bind(this)
     this.updateInputs = this.updateInputs.bind(this)
-    this.handleHomeIconPress = this.handleHomeIconPress.bind(this)
 
     // inputs (updated in componentDidMount)
     this.inputs = []
@@ -214,28 +214,9 @@ export default class AuthForm extends Component {
               </Text>
             : null }
 
-        <View
-          style={ [styles.homeMenu, {width: this.state.isExpanded ? '87%' : 58 }] }
-        >
-          <Text
-            style={ styles.homeMenuText }
-            onPress={ () => this.props.updateFormState({ mode: null }) }
-          >
-            { this.state.isExpanded ? 'Go Home!' : '' }
-          </Text>
-        </View>
-
-        <TouchableWithoutFeedback
-          accessibilityLabel='hamburger menu'
-          accessibilityRole='button'
-          accessible={ true }
-          onPress={ this.handleHomeIconPress }
-        >
-          <Image
-            source={ require('../../assets/images/rice-icon.png') }
-            style={ styles.homeIcon }
-          />
-        </TouchableWithoutFeedback>
+        <Menu
+          handlePress={ this.props.updateFormState }
+        />
 
       </Fragment>
     )

@@ -24,6 +24,7 @@ const AuthButtons = ({ handlePress }) => {
       >
         <Text>Sign up!</Text>
       </TouchableOpacity>
+
     </View>
   )
 }

@@ -38,7 +38,9 @@ export default class App extends Component {
 
   updateAppState(obj) {
     for (key in obj) {
-      this.setState({ [key]: obj[key] })
+      if ( Object.keys(this.state).indexOf(key) > -1 ) {
+        this.setState({ [key]: obj[key] })
+      }
     }
   }
 
