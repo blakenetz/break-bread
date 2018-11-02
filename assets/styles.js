@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: '100%',
-    height: 90,
+    height: 100,
     backgroundColor: seafoam,
     flex: 2,
     flexDirection: 'row',
@@ -132,6 +132,16 @@ const styles = StyleSheet.create({
 
   navBarText: {
     fontFamily: 'traveling-typewriter',
+    textAlign: 'center',
+    padding: 0,
+    marginTop: 10,
+    marginBottom: 25,
+  },
+
+  navBarIcon: {
+    resizeMode: 'contain',
+    padding: 0,
+    margin: 0,
   },
 
   topBar: {

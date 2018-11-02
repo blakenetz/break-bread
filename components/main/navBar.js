@@ -2,6 +2,7 @@ import React from 'react'
 import {
   View,
   Text,
+  Image,
 } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -11,17 +12,17 @@ const items = [
 	{
 		id: 'profile',
 		text: 'Profile',
-		icon: '',
+		icon: require('../../assets/images/egg.png'),
 	},
 	{
 		id: 'nextMeal',
 		text: 'Next Meal',
-		icon: '',
+		icon: require('../../assets/images/hot-pot.png'),
 	},
 	{
 		id: 'chat',
 		text: 'Chat',
-		icon: '',
+		icon: require('../../assets/images/cocktail.png'),
 	},
 ]
 
@@ -30,6 +31,10 @@ const MainNavBar = ({ selectedView, handlePress }) => {
     <View style={ styles.navBar }>
     	{ items.map(item => (
     			<View key={ item.id }>
+    				<Image
+		          source={ item.icon }
+		          style={ styles.navBarIcon }
+		        />
     				<Text style={ styles.navBarText }>{ item.text }</Text>
     			</View>
     	)) }
