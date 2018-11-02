@@ -12,7 +12,7 @@ import Auth from '@aws-amplify/auth'
 // views
 import inputData from './inputData'
 import AuthInput from './inputs'
-import Menu from '../shared/menu'
+import Menu from './/menu'
 import styles from '../../assets/styles'
 
 // helpers

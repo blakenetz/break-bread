@@ -117,6 +117,34 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
+  navBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: 90,
+    backgroundColor: seafoam,
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
+  navBarText: {
+    fontFamily: 'traveling-typewriter',
+  },
+
+  topBar: {
+    position: 'absolute',
+    top: 30,
+    left: 0,
+    width: '100%',
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'yellow',
+  },
+
 })
 
 export default styles
