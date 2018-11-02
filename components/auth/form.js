@@ -8,17 +8,19 @@ import {
   Image,
 } from 'react-native'
 import Auth from '@aws-amplify/auth'
+import PropTypes from 'prop-types'
 
 // views
-import inputData from './inputData'
+import inputData from '../../assets/data/input-data'
 import AuthInput from './inputs'
-import Menu from './/menu'
+import AuthMenu from './menu'
+
 import styles from '../../assets/styles'
 
 // helpers
 import passwordBlackList from '../../assets/data/password-blacklist'
 
-export default class AuthForm extends Component {
+class AuthForm extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -214,7 +216,7 @@ export default class AuthForm extends Component {
               </Text>
             : null }
 
-        <Menu
+        <AuthMenu
           handlePress={ this.props.updateFormState }
         />
 
@@ -222,3 +224,10 @@ export default class AuthForm extends Component {
     )
   }
 }
+
+AuthForm.propTypes = {
+  mode: PropTypes.string.isRequired,
+  updateFormState: PropTypes.func.isRequired,
+}
+
+export default AuthForm

@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 
   navBarText: {
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
   },
 
   navBarIcon: {
+    height: 60,
     resizeMode: 'contain',
     padding: 0,
     margin: 0,

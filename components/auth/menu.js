@@ -5,10 +5,11 @@ import {
 	TouchableWithoutFeedback,
 	Image,
 } from 'react-native'
+import PropTypes from 'prop-types'
 
 import styles from '../../assets/styles'
 
-export default class Menu extends Component {
+class AuthMenu extends Component {
 	constructor(props) {
 		super(props)
 
@@ -54,4 +55,12 @@ export default class Menu extends Component {
 		)
 	}
 }
+
+AuthMenu.propTypes = {
+	handlePress: PropTypes.func.isRequired,
+}
+
+export default AuthMenu
+
+
 

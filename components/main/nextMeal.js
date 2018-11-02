@@ -4,10 +4,11 @@ import {
   TouchableOpacity,
   DatePickerIOS,
 } from 'react-native'
+import PropTypes from 'prop-types'
 
 import styles from '../../assets/styles'
 
-export default class MainNextMeal extends Component {
+class MainNextMeal extends Component {
   constructor(props) {
     super(props)
 
@@ -90,3 +91,7 @@ export default class MainNextMeal extends Component {
     )
   }
 }
+
+MainNextMeal.propTypes = {}
+
+export default MainNextMeal

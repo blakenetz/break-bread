@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ImageBackground } from 'react-native'
+import PropTypes from 'prop-types'
 
 // style
 import styles from '../../assets/styles'
@@ -12,7 +13,7 @@ import MainProfile from './profile'
 import MainNextMeal from './nextMeal'
 import MainChat from './chat'
 
-export default class MainView extends Component {
+class MainView extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,8 +25,8 @@ export default class MainView extends Component {
     this.handlePress = this.handlePress.bind(this)
   }
 
-  handlePress() {
-    console.log('click')
+  handlePress(id) {
+    this.setState({ view: id })
   }
 
   render() {
@@ -50,3 +51,5 @@ export default class MainView extends Component {
     )
   }
 }
+
+export default MainView

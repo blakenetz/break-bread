@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  TouchableOpacity,
 } from 'react-native'
 import PropTypes from 'prop-types'
 
@@ -30,13 +31,18 @@ const MainNavBar = ({ selectedView, handlePress }) => {
   return (
     <View style={ styles.navBar }>
     	{ items.map(item => (
-    			<View key={ item.id }>
+    			<TouchableOpacity
+    				onPress={ () => handlePress(item.id) }
+    				key={ item.id }
+    			>
+
     				<Image
 		          source={ item.icon }
 		          style={ styles.navBarIcon }
 		        />
     				<Text style={ styles.navBarText }>{ item.text }</Text>
-    			</View>
+
+    			</TouchableOpacity>
     	)) }
     </View>
   )

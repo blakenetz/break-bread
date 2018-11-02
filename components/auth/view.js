@@ -3,14 +3,14 @@ import {
   ImageBackground,
   Text,
   TouchableOpacity,
-
 } from 'react-native'
+import PropTypes from 'prop-types'
 
 import styles from '../../assets/styles'
 import AuthForm from './form'
 import AuthButtons from './buttons'
 
-export default class AuthView extends Component {
+class AuthView extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -64,3 +64,9 @@ export default class AuthView extends Component {
     )
   }
 }
+
+AuthView.propTypes = {
+  updateAppState: PropTypes.func.isRequired,
+}
+
+export default AuthView

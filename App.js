@@ -50,8 +50,6 @@ export default class App extends Component {
         this.state.loggedin
           ? <MainView />
           : <AuthView
-              signedup={ this.state.signedup }
-              verified={ this.state.verified }
               updateAppState={ this.updateAppState }
             />
       ) : null
