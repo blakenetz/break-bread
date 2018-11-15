@@ -26,8 +26,8 @@ export default class App extends Component {
   async componentDidMount() {
     // is user already logged in?
     await Auth.currentAuthenticatedUser()
-      .then(user => this.setState({ loggedin: true }))
-      .catch(err => this.setState({ loggedin: false }))
+      .then( user => this.setState({ loggedin: true }) )
+      .catch( err => this.setState({ loggedin: false }) )
 
     // load fonts
     await Font.loadAsync({

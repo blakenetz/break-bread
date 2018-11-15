@@ -7,7 +7,6 @@ const red = '#FF443A'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: seafoam,
     justifyContent: 'center',
   },
 
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: '100%',
-    height: 100,
+    height: 70,
     backgroundColor: seafoam,
     flex: 2,
     flexDirection: 'row',
@@ -136,12 +135,12 @@ const styles = StyleSheet.create({
     fontFamily: 'traveling-typewriter',
     textAlign: 'center',
     padding: 0,
-    marginTop: 10,
-    marginBottom: 25,
+    marginTop: 5,
+    marginBottom: 5,
   },
 
   navBarIcon: {
-    height: 60,
+    height: 40,
     resizeMode: 'contain',
     padding: 0,
     margin: 0,
@@ -158,6 +157,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
   },
 
+  profile: {
+    flex: 1,
+    justifyContent: 'center',
+    height: '100%',
+  },
 })
 
 export default styles

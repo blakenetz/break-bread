@@ -52,4 +52,6 @@ class MainView extends Component {
   }
 }
 
+MainView.proptypes = {}
+
 export default MainView
