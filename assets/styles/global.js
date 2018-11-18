@@ -1,5 +1,3 @@
-import { StyleSheet } from 'react-native'
-
 const seafoam = '#62fcbe'
 const blue = '#43A8B1'
 const red = '#FF443A'
@@ -11,7 +9,7 @@ const globalStyles = {
     red: red,
   },
 
-  styles: StyleSheet.create({
+  styles: {
     title: {
       fontFamily: 'traveling-typewriter',
       fontSize: 30,
@@ -40,7 +38,7 @@ const globalStyles = {
       flex: 1,
       justifyContent: 'center',
     },
-  }),
+  },
 
 }
 

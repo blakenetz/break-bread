@@ -3,13 +3,20 @@ import globalStyles from './global'
 
 const authStyles = StyleSheet.create({
 
+  // extend global styles
+  imageBackground: globalStyles.styles.imageBackground,
+  title: globalStyles.styles.title,
+  message: globalStyles.styles.message,
+  button: globalStyles.styles.button,
+
+  // component styles
   link: {
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
 
   formButtonPrimary: {
-    backgroundColor: globalStyles.color.seafoam,
+    backgroundColor: globalStyles.colors.seafoam,
     alignItems: 'center',
     padding: 10,
     margin: 10,
@@ -21,7 +28,7 @@ const authStyles = StyleSheet.create({
 
   input: {
     backgroundColor: '#FFF',
-    borderColor: globalStyles.color.seafoam,
+    borderColor: globalStyles.colors.seafoam,
     borderWidth: 5,
     padding: 10,
     marginLeft: 10,
@@ -30,7 +37,7 @@ const authStyles = StyleSheet.create({
 
   inputError: {
     backgroundColor: '#FFF',
-    borderColor: globalStyles.color.red,
+    borderColor: globalStyles.colors.red,
     borderWidth: 5,
     padding: 10,
     marginLeft: 10,
@@ -63,7 +70,7 @@ const authStyles = StyleSheet.create({
     position: 'absolute',
     bottom: '3%',
     right: '6%',
-    backgroundColor: globalStyles.color.seafoam,
+    backgroundColor: globalStyles.colors.seafoam,
     height: 58,
     width: 58,
     borderTopRightRadius: 90,

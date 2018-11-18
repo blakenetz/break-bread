@@ -3,6 +3,13 @@ import globalStyles from './global'
 
 const mainStyles = StyleSheet.create({
 
+  // extend global styles
+  imageBackground: globalStyles.styles.imageBackground,
+  title: globalStyles.styles.title,
+  message: globalStyles.styles.message,
+  button: globalStyles.styles.button,
+
+  // component styles
   navBar: {
     position: 'absolute',
     bottom: 0,
