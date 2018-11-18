@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import mainStyles from '../../assets/styles/main'
 
 class MainNextMeal extends Component {
   constructor(props) {
@@ -53,22 +53,22 @@ class MainNextMeal extends Component {
   render() {
     return (
       <Fragment>
-        <Text style={ styles.title }>nom nom nom!</Text>
+        <Text style={ mainStyles.title }>nom nom nom!</Text>
 
-        <Text style={ styles.message }>
+        <Text style={ mainStyles.message }>
           Next family dinner is {this.formatDate(this.state.chosenDate)}
         </Text>
 
         <TouchableOpacity
           onPress={ () => this.handlePress('date') }
-          style={ styles.button }
+          style={ mainStyles.button }
         >
           <Text>Pick a Date!</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={ () => this.handlePress('theme') }
-          style={ styles.button }
+          style={ mainStyles.button }
         >
           <Text>Pick a Theme!</Text>
         </TouchableOpacity>

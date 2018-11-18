@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import authStyles from '../../assets/styles/auth'
 import AuthForm from './form'
 import AuthButtons from './buttons'
 
@@ -38,14 +38,14 @@ class AuthView extends Component {
     return (
       <ImageBackground
         source={ require('../../assets/images/blue-pinapple.png') }
-        style={ styles.imageBackground }
+        style={ authStyles.imageBackground }
       >
-        <Text style={ styles.title }>
+        <Text style={ authStyles.title }>
           Break Bread.
         </Text>
 
         { this.state.message.length > 0
-            ? <Text style={ styles.message }>
+            ? <Text style={ authStyles.message }>
                 { this.state.message }
               </Text>
             : null }

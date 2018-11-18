@@ -5,12 +5,12 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import mainStyles from '../../assets/styles/main'
 
 const MainTopBar = ({ party }) => {
   return (
-    <View style={ styles.topBar }>
-      <Text style={ styles.title }>{ party }</Text>
+    <View style={ mainStyles.topBar }>
+      <Text style={ mainStyles.title }>{ party }</Text>
     </View>
   )
 }

@@ -6,21 +6,21 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import authStyles from '../../assets/styles/auth'
 
 const AuthButtons = ({ handlePress }) => {
   return (
     <View>
       <TouchableOpacity
         onPress={ () => handlePress({ mode: 'login'}) }
-        style={ styles.button }
+        style={ authStyles.button }
       >
         <Text>Log in!</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={ () => handlePress({ mode: 'signup'}) }
-        style={ styles.button }
+        style={ authStyles.button }
       >
         <Text>Sign up!</Text>
       </TouchableOpacity>

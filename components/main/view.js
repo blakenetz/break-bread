@@ -3,7 +3,7 @@ import { ImageBackground } from 'react-native'
 import PropTypes from 'prop-types'
 
 // style
-import styles from '../../assets/styles'
+import mainStyles from '../../assets/styles/main'
 
 // components
 import MainTopBar from './topBar'
@@ -33,7 +33,7 @@ class MainView extends Component {
     return (
       <ImageBackground
         source={ require('../../assets/images/octopus.png') }
-        style={ styles.imageBackground }
+        style={ mainStyles.imageBackground }
       >
 
         <MainTopBar party={ this.state.party } />

@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import authStyles from '../../assets/styles/auth'
 
 class AuthMenu extends Component {
 	constructor(props) {
@@ -30,10 +30,10 @@ class AuthMenu extends Component {
 		return (
 			<Fragment>
 				<View
-	        style={ [styles.homeMenu, {width: this.state.isExpanded ? '87%' : 58 }] }
+	        style={ [authStyles.homeMenu, {width: this.state.isExpanded ? '87%' : 58 }] }
 	      >
 	        <Text
-	          style={ styles.homeMenuText }
+	          style={ authStyles.homeMenuText }
 	          onPress={ () => this.props.handlePress({ mode: null }) }
 	        >
 	          { this.state.isExpanded ? 'Go Home!' : '' }
@@ -48,7 +48,7 @@ class AuthMenu extends Component {
 	      >
 	        <Image
 	          source={ require('../../assets/images/rice-icon.png') }
-	          style={ styles.homeIcon }
+	          style={ authStyles.homeIcon }
 	        />
 	      </TouchableWithoutFeedback>
 			</Fragment>

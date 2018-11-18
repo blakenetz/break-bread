@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import mainStyles from '../../assets/styles/main'
 
 const items = [
 	{
@@ -29,7 +29,7 @@ const items = [
 
 const MainNavBar = ({ selectedView, handlePress }) => {
   return (
-    <View style={ styles.navBar }>
+    <View style={ mainStyles.navBar }>
     	{ items.map(item => (
     			<TouchableOpacity
     				onPress={ () => handlePress(item.id) }
@@ -38,9 +38,9 @@ const MainNavBar = ({ selectedView, handlePress }) => {
 
     				<Image
 		          source={ item.icon }
-		          style={ styles.navBarIcon }
+		          style={ mainStyles.navBarIcon }
 		        />
-    				<Text style={ styles.navBarText }>{ item.text }</Text>
+    				<Text style={ mainStyles.navBarText }>{ item.text }</Text>
 
     			</TouchableOpacity>
     	)) }

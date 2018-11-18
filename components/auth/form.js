@@ -15,7 +15,7 @@ import inputData from '../../assets/data/input-data'
 import AuthInput from './inputs'
 import AuthMenu from './menu'
 
-import styles from '../../assets/styles'
+import authStyles from '../../assets/styles/auth'
 
 // helpers
 import passwordBlackList from '../../assets/data/password-blacklist'
@@ -202,7 +202,7 @@ class AuthForm extends Component {
 
         <TouchableOpacity
           onPress={ this.handleSubmit }
-          style={ styles.formButtonPrimary }
+          style={ authStyles.formButtonPrimary }
         >
           <Text>Submit!</Text>
         </TouchableOpacity>
@@ -210,7 +210,7 @@ class AuthForm extends Component {
         { this.state.mode !== 'verify'
             ? <Text
                 onPress={ () => this.props.updateFormState({ mode: 're-verify' }) }
-                style={ styles.link }
+                style={ authStyles.link }
               >
                 Need to verify your account?
               </Text>

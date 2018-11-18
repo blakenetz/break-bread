@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Text, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
-import styles from '../../assets/styles'
+import authStyles from '../../assets/styles/auth'
 
 const AuthInput = ({
     name,
@@ -20,11 +20,11 @@ const AuthInput = ({
   }) => {
   return (
     <Fragment>
-      <Text style={ styles.label }>
+      <Text style={ authStyles.label }>
         {label}
       </Text>
       <TextInput
-        style={ hasError ? styles.inputError : styles.input }
+        style={ hasError ? authStyles.inputError : authStyles.input }
         value={ value }
         onChangeText={ text => handleChange({ [name]: text }) }
         onBlur={ e => handleBlur({ [name]: e.nativeEvent.text }) }
@@ -36,7 +36,7 @@ const AuthInput = ({
         placeholder={ placeholder }
         autoFocus={ autoFocus }
       />
-      <Text style={ styles.errorMessage }>
+      <Text style={ authStyles.errorMessage }>
         { hasError ? errorMessage : '' }
       </Text>
     </Fragment>

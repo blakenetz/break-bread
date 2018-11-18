@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types'
 import Amplify, { Auth } from 'aws-amplify'
 
-import styles from '../../assets/styles'
+import mainStyles from '../../assets/styles/main'
 
 class MainChat extends Component {
 
@@ -76,8 +76,8 @@ class MainChat extends Component {
 
 	render() {
 	  return (
-	    <View style={ styles.profile }>
-	      <Text style={ styles.title }>You!</Text>
+	    <View style={ mainStyles.profile }>
+	      <Text style={ mainStyles.title }>You!</Text>
 
 	      <FlatList
 				  data={ this.state.userData }
