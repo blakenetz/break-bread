@@ -48,7 +48,7 @@ const authStyles = StyleSheet.create({
   label: {
     marginLeft: 10,
     color: '#000',
-    fontSize: 15,
+    fontSize: globalStyles.fonts.bodySize_2,
   },
 
   errorMessage: {
@@ -56,7 +56,7 @@ const authStyles = StyleSheet.create({
     marginBottom: 20,
     marginTop: -15,
     color: 'black',
-    fontSize: 15,
+    fontSize: globalStyles.fonts.bodySize_2,
   },
 
   homeIcon: {
@@ -83,8 +83,8 @@ const authStyles = StyleSheet.create({
   homeMenuText: {
     textAlign: 'center',
     textDecorationLine: 'underline',
-    fontFamily: 'traveling-typewriter',
-    fontSize: 20,
+    fontFamily: globalStyles.fonts.header,
+    fontSize: globalStyles.fonts.headerSize_3,
   },
 })
 

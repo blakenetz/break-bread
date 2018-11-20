@@ -42,28 +42,29 @@ class MainChat extends Component {
 	}
 
 	renderListItem(obj, i) {
+
 		for (let key in obj) {
 
 			switch (key) {
 				case 'username':
 					return (
-						<View key={ i }>
-							<Text>Username:</Text>
-							<Text>{ obj[key] }</Text>
+						<View key={ i } style={ mainStyles.listItem }>
+							<Text style={ mainStyles.listItemKey }>Username:</Text>
+							<Text style={ mainStyles.listItemVal }>{ obj[key] }</Text>
 						</View>
 					)
 				case 'phone':
 					return (
-						<View key={ i }>
-							<Text>Phone number:</Text>
-							<Text>{ this.formatPhoneNumber(obj[key]) }</Text>
+						<View key={ i } style={ mainStyles.listItem }>
+							<Text style={ mainStyles.listItemKey }>Phone number:</Text>
+							<Text style={ mainStyles.listItemVal }>{ this.formatPhoneNumber(obj[key]) }</Text>
 						</View>
 					)
 				case 'isPhoneVerified':
 					return (
-						<View key={ i }>
-							<Text>Phone number verified:</Text>
-							<Text>{ obj[key] ? 'Yes it is!' : "Not yet... how'd this even happen?" }</Text>
+						<View key={ i } style={ mainStyles.listItem }>
+							<Text style={ mainStyles.listItemKey }>Phone number verified:</Text>
+							<Text style={ mainStyles.listItemVal }>{ obj[key] ? 'Yes it is!' : "Not yet... how'd this even happen?" }</Text>
 						</View>
 					)
 			}
@@ -77,15 +78,20 @@ class MainChat extends Component {
 	render() {
 	  return (
 	    <View style={ mainStyles.profile }>
-	      <Text style={ mainStyles.title }>You!</Text>
+	      <Text style={ mainStyles.profileHeader1 }>You!</Text>
+	      <Text style= { mainStyles.profileHeader2 }>
+	      	This is literally all the information we have on you.
+	      </Text>
+	      <Text style= { mainStyles.profileHeader2 }>
+	      	Be happy!
+	      </Text>
 
 	      <FlatList
 				  data={ this.state.userData }
 				  renderItem={ ({ item, i }) => this.renderListItem(item, i) }
 				  keyExtractor={ this.keyExtractor }
+				  style={ mainStyles.flatList }
 				/>
-
-	      <Text>This is literally all the information we have on you. Be happy!</Text>
 	    </View>
 	  )
 	}
