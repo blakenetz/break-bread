@@ -67,9 +67,9 @@ const mainStyles = StyleSheet.create({
     backgroundColor: 'white',
     borderStyle: 'solid',
     borderRadius: 10,
-    borderTopColor: globalStyles.colors.purple,
+    borderTopColor: globalStyles.colors.seafoam,
     borderTopWidth: 10,
-    borderBottomColor: globalStyles.colors.pink,
+    borderBottomColor: globalStyles.colors.seafoam_dark,
     borderBottomWidth: 10,
   },
 

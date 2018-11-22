@@ -4,6 +4,7 @@ const header = 'traveling-typewriter'
 
 // colors
 const seafoam = '#62fcbe'
+const seafoam_dark = '#327F60'
 const blue = '#43A8B1'
 const red = '#FF443A'
 const green = '#3D9974'
@@ -13,6 +14,7 @@ const pink = '#FF40F4'
 const globalStyles = {
   colors: {
     seafoam: seafoam,
+    seafoam_dark: seafoam_dark,
     blue: blue,
     red: red,
     green: green,
