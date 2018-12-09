@@ -1,5 +1,5 @@
 {
-  "name": "famdin",
+  "name": "break-bread",
   "version": "1.0.0",
   "description": "Planning app for fun family/friend dinners",
   "keywords": [
@@ -29,15 +29,19 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "aws-amplify": "^1.1.10",
-    "expo": "^30.0.2",
+    "aws-amplify": "^1.1.13",
+    "expo": "^31.0.6",
     "prop-types": "^15.6.2",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz"
+    "react": "^16.6.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-gifted-chat": "^0.5.0"
   },
   "rnpm": {
     "assets": [
       "./assets/fonts/"
     ]
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0"
   }
 }
