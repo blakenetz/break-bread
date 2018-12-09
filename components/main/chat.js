@@ -1,21 +1,59 @@
-import React, { Component, Fragment } from 'react'
-import {
-  Text,
-} from 'react-native'
-import PropTypes from 'prop-types'
+import React, { Component, Fragment } from "react";
+import { Text } from "react-native";
+import PropTypes from "prop-types";
 
-import mainStyles from '../../assets/styles/main'
+import { GiftedChat } from "react-native-gifted-chat";
 
-const MainChat = ({}) => {
-  return (
-    <Fragment>
-      <Text style={ mainStyles.title }>nom nom nom!</Text>
+import mainStyles from "../../assets/styles/main";
 
-      <Text>Chat chat chat</Text>
-    </Fragment>
-  )
+class MainChat extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			messages: []
+		};
+
+		// bind methods
+		this.onSend = this.onSend.bind(this);
+	}
+
+	componentDidMount() {
+		this.setState({
+			messages: [
+				{
+					_id: 1,
+					text: "Hello developer",
+					createdAt: new Date(),
+					user: {
+						_id: 2,
+						name: "React Native",
+						avatar: "https://placeimg.com/140/140/any"
+					}
+				}
+			]
+		});
+	}
+
+	onSend(messages = []) {
+		this.setState(previousState => ({
+			messages: GiftedChat.append(previousState.messages, messages)
+		}));
+	}
+
+	render() {
+		return (
+			<GiftedChat
+				messages={this.state.messages}
+				onSend={messages => this.onSend(messages)}
+				user={{
+					_id: 1
+				}}
+			/>
+		);
+	}
 }
 
-MainChat.propTypes = {}
+MainChat.propTypes = {};
 
-export default MainChat
+export default MainChat;
