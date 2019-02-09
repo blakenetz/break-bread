@@ -40,9 +40,13 @@ class MainNextMeal extends Component {
 	}
 
 	handlePress(type) {
-		if (type == "date")
-			this.setState({ showDatePicker: !this.state.showDatePicker });
-		else this.setState({ showThemePicker: !this.state.showThemePicker });
+		const key = type === "date" ? "showDatePicker" : "showThemePicker";
+		this.setState(prevState => {
+			return {
+				...prevState,
+				[key]: !prevState[key]
+			};
+		});
 	}
 
 	render() {

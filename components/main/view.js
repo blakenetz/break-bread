@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { ImageBackground } from "react-native";
 import PropTypes from "prop-types";
+import Amplify, { Storage } from "aws-amplify";
+import awsmobile from "./aws-exports";
 
 // style
 import mainStyles from "../../assets/styles/main";
@@ -8,7 +10,6 @@ import mainStyles from "../../assets/styles/main";
 // components
 import MainTopBar from "./topBar";
 import MainNavBar from "./navBar";
-
 import MainProfile from "./profile";
 import MainNextMeal from "./nextMeal";
 import MainChat from "./chat";
@@ -23,6 +24,9 @@ class MainView extends Component {
 
 		// bind methods
 		this.handlePress = this.handlePress.bind(this);
+
+		// setup AWS storage
+		Amplify.configure(awsmobile);
 	}
 
 	handlePress(id) {
