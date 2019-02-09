@@ -1,28 +1,26 @@
 {
-  "expo": {
-    "name": "Break Bread.",
-    "description": "Organize dinners with family and friends. Have fun.",
-    "slug": "break-bread",
-    "privacy": "public",
-    "sdkVersion": "31.0.0",
-    "platforms": ["ios"],
-    "version": "1.0.0",
-    "githubUrl": "https://github.com/blakeface/break-bread",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffc658"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
-  }
+	"expo": {
+		"name": "Break Bread.",
+		"description": "Organize dinners with family and friends. Have fun.",
+		"slug": "break-bread",
+		"privacy": "public",
+		"sdkVersion": "31.0.0",
+		"platforms": ["ios"],
+		"version": "1.0.0",
+		"githubUrl": "https://github.com/blakeface/break-bread",
+		"orientation": "portrait",
+		"icon": "./assets/images/icon.png",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffc658"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		}
+	}
 }
