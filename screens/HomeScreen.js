@@ -1,7 +1,6 @@
 import * as WebBrowser from "expo-web-browser";
 import React from "react";
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,8 +9,6 @@ import {
   View,
 } from "react-native";
 
-import { MonoText } from "../components/StyledText";
-
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -19,16 +16,7 @@ export default function HomeScreen() {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require("../assets/images/robot-dev.png")
-                : require("../assets/images/robot-prod.png")
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+        <View style={styles.welcomeContainer} />
 
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
@@ -37,9 +25,7 @@ export default function HomeScreen() {
 
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          >
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
+          />
 
           <Text style={styles.getStartedText}>
             Change this text and your app will automatically reload. new text!
@@ -62,11 +48,7 @@ export default function HomeScreen() {
 
         <View
           style={[styles.codeHighlightContainer, styles.navigationFilename]}
-        >
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
+        />
       </View>
     </View>
   );

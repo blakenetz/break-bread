@@ -1,4 +1,25 @@
 {
+  "name": "break-bread",
+  "version": "1.0.0",
+  "description": "Planning app for fun family/friend dinners",
+  "keywords": [
+    "organizing",
+    "planning",
+    "dinner",
+    "food",
+    "meal planning",
+    "meal prep",
+    "gatherings"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blakeface/break-bread"
+  },
+  "bugs": {
+    "url": "https://github.com/blakeface/break-bread/issues"
+  },
+  "license": "MIT",
+  "author": "Blake Netzeband <blake.netzeband@gmail.com> (https://www.blakenetzeband.com)",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -15,6 +36,7 @@
     "@expo/samples": "~3.0.0",
     "@expo/vector-icons": "^10.0.1",
     "@react-navigation/web": "^1.0.0-alpha.9",
+    "aws-amplify": "^1.1.29",
     "expo": "^33.0.0",
     "expo-asset": "^5.0.0",
     "expo-constants": "^5.0.0",
