@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View } from "react-native";
-import { Font } from "expo";
+import * as Font from "expo-font";
 
 // views
 import AuthView from "./components/auth/view";
