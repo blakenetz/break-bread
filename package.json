@@ -25,7 +25,8 @@
   "scripts": {
     "start": "expo start --ios",
     "expo": "expo start",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "reset-cache": "watchman watch-del-all && react-native start --reset-cache"
   },
   "dependencies": {
     "aws-amplify": "^1.1.19",
