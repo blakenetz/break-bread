@@ -1,12 +1,11 @@
 {
-  "name": "breakBread",
+  "name": "break-bread",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "react-native start",
     "start:android": "react-native run-android && react-native log-android",
     "start:ios": "react-native run-ios",
-    "start:web": "expo start --web",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "debug": "react-devtools",
@@ -17,6 +16,7 @@
     "@aws-amplify/auth": "^3.4.17",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.9.0",
+    "@react-navigation/stack": "^5.13.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-gesture-handler": "^1.9.0",
