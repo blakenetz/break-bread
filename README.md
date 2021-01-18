@@ -11,24 +11,12 @@ React Native app for organizing family dinners
 ## 🍞 FEATURES
 
 - Able to set date for next dinner
-- for above: able to access people's Google Calendar (??)
+- For above: able to access people's Google Calendar (??)
 - Able to set random theme for next dinner from library of themes (region, country, diet-type, holiday, etc.)
 - Able to add to library of themes (ex: holiday include xmas, halloween, ramadan, etc.)
 - Able to invite people to next dinner (email, phone number)
-- for above: able to access users contacts
-- this needs to be fun, so add fun stuff to it!
-
-## 🍞 COMMANDS
-
-Typical NPM commands:
-
-- `$ npm start`
-- `$ npm run ios`
-
-Or Expo commands:
-
-- `$ expo start`
-- `$ expo start --ios`
+- For above: able to access users contacts
+- This needs to be fun, so add fun stuff to it!
 
 ## 🍞 OTHER TOASTY STUFF:
 
