@@ -18,6 +18,7 @@
 		7823CCF76727BCCE4A1204D7 /* libPods-breakBread-breakBreadTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 414B954E6C269FDE12DEE008 /* libPods-breakBread-breakBreadTests.a */; };
 		7B929004057E9EEE3DDFE462 /* libPods-breakBread-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E26CD35443EA8A5AA0DF9D65 /* libPods-breakBread-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		ED1A782A25B86BFE0000F27D /* TravelingTypewriter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED1A782925B86BFE0000F27D /* TravelingTypewriter.ttf */; };
 		EFED0CF4B7CA681386ADDA57 /* libPods-breakBread-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7F13A0E136D0358C58EB6C /* libPods-breakBread-tvOS.a */; };
 		F4F381C7C188974FD18215AF /* libPods-breakBread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 002CC1E14EFB520A6E8D787A /* libPods-breakBread.a */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		B56802B62EEF9315D3D43C2B /* Pods-breakBread-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-breakBread-tvOS.release.xcconfig"; path = "Target Support Files/Pods-breakBread-tvOS/Pods-breakBread-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		CECBECD0865383FCB708CD47 /* Pods-breakBread-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-breakBread-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-breakBread-tvOS/Pods-breakBread-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E26CD35443EA8A5AA0DF9D65 /* libPods-breakBread-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-breakBread-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED1A782925B86BFE0000F27D /* TravelingTypewriter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = TravelingTypewriter.ttf; path = ../src/assets/fonts/TravelingTypewriter.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FD0480A026316D4B524F4F8E /* Pods-breakBread-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-breakBread-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-breakBread-tvOSTests/Pods-breakBread-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -148,7 +150,6 @@
 				4CD11A346C9324DCA07C28F9 /* Pods-breakBread-tvOSTests.debug.xcconfig */,
 				FD0480A026316D4B524F4F8E /* Pods-breakBread-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -175,6 +176,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				ED1A782925B86BFE0000F27D /* TravelingTypewriter.ttf */,
 				13B07FAE1A68108700A75B9A /* breakBread */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* breakBreadTests */,
@@ -294,6 +296,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = R9LN5ZPNK3;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -340,6 +343,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED1A782A25B86BFE0000F27D /* TravelingTypewriter.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -656,6 +660,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R9LN5ZPNK3;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = breakBread/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -679,6 +684,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R9LN5ZPNK3;
 				INFOPLIST_FILE = breakBread/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

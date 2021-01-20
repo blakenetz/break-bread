@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native';
 
-const seafoam = '#62fcbe'
-const blue = '#43A8B1'
-const red = '#FF443A'
+const seafoam = '#62fcbe';
+const blue = '#43A8B1';
+const red = '#FF443A';
 
 const styles = StyleSheet.create({
   container: {
@@ -162,6 +162,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
   },
-})
+});
 
-export default styles
+export default styles;

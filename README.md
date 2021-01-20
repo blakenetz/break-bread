@@ -25,4 +25,4 @@ React Native app for organizing family dinners
 
 <img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/splash.png" alt="splash page" width="300" />
 <img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/icon.png" alt="icon" width="300" />
-<img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/blue-pinapple.png" alt="blue pinapple" width="300" />
+<img src="https://raw.githubusercontent.com/blakeface/break-bread/master/assets/images/blue-pineapple.png" alt="blue pineapple" width="300" />
