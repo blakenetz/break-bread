@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {ImageBackground, Text, StyleSheet, Pressable} from 'react-native';
+import {ImageBackground, StyleSheet} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+import {Button, Text} from '@ui-kitten/components';
 
 import Form from './form';
-import {CustomTheme} from '../../App';
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -13,21 +13,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontFamily: 'traveling-typewriter',
     fontSize: 30,
     textAlign: 'center',
     padding: 10,
   },
   message: {textAlign: 'center'},
-  button: {
-    alignItems: 'center',
-    padding: 10,
-    margin: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
+  button: {margin: 10},
+  buttonText: {color: 'black'},
 });
 
 const initialMode = 'initial';
@@ -53,12 +45,18 @@ export default function WelcomeView() {
 
       {mode === initialMode ? (
         buttons.map((btn) => (
-          <Pressable
+          <Button
             key={btn.key}
             onPress={() => setMode(btn.key)}
-            style={[styles.button, {backgroundColor: theme.colors.primary}]}>
-            <Text>{btn.label}</Text>
-          </Pressable>
+            style={styles.button}>
+            {(textProps) => (
+              <Text
+                {...textProps}
+                style={[textProps?.style, styles.buttonText]}>
+                {btn.label}
+              </Text>
+            )}
+          </Button>
         ))
       ) : (
         <Form mode={mode} onSubmit={setMode} setMessage={setMessage} />
