@@ -1,7 +1,7 @@
 import React, {useReducer, useMemo} from 'react';
-import {Text, Pressable} from 'react-native';
-import Auth from '@aws-amplify/auth';
+import {Pressable} from 'react-native';
 import {string, func} from 'prop-types';
+import {Text, Input} from '@ui-kitten/components';
 
 // views
 import inputData from '../../assets/data/input-data';
@@ -10,18 +10,15 @@ import AuthMenu from './menu';
 
 import styles from '../../assets/styles';
 
-interface Input {
+interface InputData {
   name: string;
-  placeholder: string;
   errorMessage?: string;
-  label?: string;
-  keyboard?: string;
-  textContent?: string;
+  placeholder?: string;
   autoCapitalize?: string;
 }
 
-function AuthForm(props: {mode: any}) {
-  const inputs: Input[] = useMemo(() => {
+function WelcomeForm(props: {mode: any}) {
+  const inputs: InputData[] = useMemo(() => {
     switch (props.mode) {
       case 'verify':
         return [inputData.verify];
@@ -155,24 +152,32 @@ function AuthForm(props: {mode: any}) {
 
   return (
     <>
-      {inputs.map((input: Input, i: number) => {
+      {inputs.map((input: InputData, i: number) => {
         return (
-          <AuthInput
-            name={input.name}
-            label={input.label}
-            value={this.state[input.name]}
-            returnKey={input.returnKey}
-            keyboard={input.keyboard}
-            textContent={input.textContent}
-            placeholder={input.placeholder}
-            autoFocus={input.autoFocus}
-            autoCapitalize={input.autoCapitalize}
-            hasError={
-              input.hasError || this.state.errors.indexOf(input.name) > -1
+          <Input
+            label={
+              input.label ||
+              input.name.replace(/\w/, (firstLetter) =>
+                firstLetter.toUpperCase(),
+              )
             }
-            errorMessage={input.errorMessage}
-            key={i}
           />
+          // <AuthInput
+          //   name={input.name}
+          //   label={input.label}
+          //   value={this.state[input.name]}
+          //   returnKey={input.returnKey}
+          //   keyboard={input.keyboard}
+          //   textContent={input.textContent}
+          //   placeholder={input.placeholder}
+          //   autoFocus={input.autoFocus}
+          //   autoCapitalize={input.autoCapitalize}
+          //   hasError={
+          //     input.hasError || this.state.errors.indexOf(input.name) > -1
+          //   }
+          //   errorMessage={input.errorMessage}
+          //   key={i}
+          // />
         );
       })}
 
@@ -186,16 +191,16 @@ function AuthForm(props: {mode: any}) {
         </Text>
       )}
 
-      <AuthMenu handlePress={props.onSubmit} />
+      {/* <AuthMenu handlePress={props.onSubmit} /> */}
     </>
   );
 }
 
-AuthForm.propTypes = {
+WelcomeForm.propTypes = {
   mode: string.isRequired,
   updateFormState: func.isRequired,
   setMessage: func.isRequired,
   onSubmit: func.isRequired,
 };
 
-export default AuthForm;
+export default WelcomeForm;
