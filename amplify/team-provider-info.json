@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-breakbread-dev-162926-authRole",
+      "UnauthRoleArn": "arn:aws:iam::187864192245:role/amplify-breakbread-dev-162926-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::187864192245:role/amplify-breakbread-dev-162926-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-breakbread-dev-162926-deployment",
+      "UnauthRoleName": "amplify-breakbread-dev-162926-unauthRole",
+      "StackName": "amplify-breakbread-dev-162926",
+      "StackId": "arn:aws:cloudformation:us-east-1:187864192245:stack/amplify-breakbread-dev-162926/02aae870-59e5-11eb-a3b4-0e69690dd155",
+      "AmplifyAppId": "d3vh3ziv2xkrzi"
+    },
+    "categories": {
+      "auth": {
+        "breakbreadb82ed379": {}
+      }
+    }
+  }
+}

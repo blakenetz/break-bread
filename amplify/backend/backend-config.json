@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "breakbreadb82ed379": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
