@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import {Button, Text} from '@ui-kitten/components';
 
 import Form from './form';
@@ -30,8 +29,6 @@ const buttons = [
 ];
 
 export default function WelcomeView() {
-  const theme = useTheme();
-
   const [message, setMessage] = useState();
   const [mode, setMode] = useState(initialMode);
 
@@ -44,15 +41,13 @@ export default function WelcomeView() {
       {Boolean(message) && <Text style={styles.message}>{message}</Text>}
 
       {mode === initialMode ? (
-        buttons.map((btn) => (
+        buttons.map(btn => (
           <Button
             key={btn.key}
             onPress={() => setMode(btn.key)}
             style={styles.button}>
-            {(textProps) => (
-              <Text
-                {...textProps}
-                style={[textProps?.style, styles.buttonText]}>
+            {textProps => (
+              <Text {...textProps} style={[textProps.style, styles.buttonText]}>
                 {btn.label}
               </Text>
             )}

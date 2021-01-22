@@ -5,8 +5,9 @@ React Native app for organizing family dinners
 ## 🍞 TOOLS
 
 - React Native
-- Typescript
 - Amplify
+- UI Kitten
+- React Navigation
 
 ## 🍞 FEATURES
 

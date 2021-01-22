@@ -21,24 +21,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  link: {
-    textAlign: 'center',
-    textDecorationLine: 'underline',
-  },
-
   button: {
     backgroundColor: red,
-    alignItems: 'center',
-    padding: 10,
-    margin: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-
-  formButtonPrimary: {
-    backgroundColor: seafoam,
     alignItems: 'center',
     padding: 10,
     margin: 10,
