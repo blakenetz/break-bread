@@ -57,6 +57,13 @@ const styles = StyleSheet.create({
   label: {color: 'black', fontWeight: 'bold', fontSize: 14},
 });
 
+/**
+ *
+ * @param {object} state
+ * @param {{field: string, value: any}} action
+ *
+ * @returns {object} state
+ */
 function reducer(state, action) {
   const {field, value} = action;
   return {
@@ -171,7 +178,7 @@ function WelcomeForm(props) {
 
   const [values, dispatch] = useReducer(
     reducer,
-    inputs.reduce((acc, {name}) => ({...acc, [name]: ''}), {}),
+    inputs.reduce((acc, input) => ({...acc, [input.name]: ''}), {}),
   );
 
   return (
@@ -182,7 +189,7 @@ function WelcomeForm(props) {
           <Input
             key={input.name}
             value={values[input.name]}
-            onChangeText={val => dispatch(input.name, val)}
+            onChangeText={val => dispatch({field: input.name, value: val})}
             label={labelProps => (
               <Text {...labelProps} style={[labelProps.style, styles.label]}>
                 {extractLabel(input)}
