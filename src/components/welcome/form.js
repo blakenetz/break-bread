@@ -1,7 +1,14 @@
-import React, {useReducer, useMemo, useState, useCallback} from 'react';
-import {string, func, bool} from 'prop-types';
+import React, {
+  useReducer,
+  useMemo,
+  useState,
+  useCallback,
+  useEffect,
+  createRef,
+} from 'react';
+import {string, func} from 'prop-types';
 import {Text, Input, Button, Icon} from '@ui-kitten/components';
-import {TouchableWithoutFeedback, StyleSheet} from 'react-native';
+import {TouchableWithoutFeedback, StyleSheet, Keyboard} from 'react-native';
 import Auth from '@aws-amplify/auth';
 
 import AuthMenu from './menu';
@@ -11,12 +18,14 @@ const passwordSchema = {
   errorMessage: 'Password needs to be at least 7 characters and not obvious.',
   passwordRules: 'minlength: 7',
   accessoryRight: 'password',
+  validate: val => val.length > 7,
 };
 
 const usernameSchema = {
   name: 'username',
   autoCapitalize: 'sentences',
   errorMessage: 'Please add a name. We need to call you something.',
+  validate: val => val.length > 0,
 };
 
 const schema = {
@@ -40,6 +49,7 @@ const schema = {
     keyboardType: 'phone-pad',
     textContent: 'telephoneNumber',
     errorMessage: "That's not a phone number! 10 characters please.",
+    validate: val => val.length === 10,
   },
   verify: {
     name: 'verify',
@@ -55,6 +65,13 @@ const styles = StyleSheet.create({
   link: {textAlign: 'center', textDecorationLine: 'underline'},
   input: {margin: 10},
   label: {color: 'black', fontWeight: 'bold', fontSize: 14},
+  caption: {
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    borderRadius: 4,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    fontWeight: 'bold',
+  },
 });
 
 /**
@@ -81,11 +98,11 @@ function extractLabel({label, name}) {
 }
 
 function WelcomeForm(props) {
+  const [refs, setRefs] = useState([]);
   const [secureTextEntry, setSecureTextEntry] = useState(
     props.mode === 'signup' || props.mode === 'login',
   );
   const [errors, setErrors] = useState([]);
-
   const inputs = useMemo(() => {
     switch (props.mode) {
       case 'verify':
@@ -100,36 +117,39 @@ function WelcomeForm(props) {
     }
   }, [props.mode]);
 
-  // const validate(obj) {
-  //   for (const key in obj) {
-  //     const i = this.state.errors.indexOf(key);
-  //     const val = obj[key];
+  useEffect(() => {
+    setRefs(prev => {
+      return Array(inputs.length)
+        .fill()
+        .map((_, i) => prev[i] || createRef());
+    });
+  }, [inputs]);
 
-  //     if (
-  //       (key === 'username' && val.length === 0) ||
-  //       (key === 'password' && val.length < 8) ||
-  //       (key === 'phone' && val.length !== 10)
-  //     ) {
-  //       // add to errors
-  //       if (i === -1) {
-  //         this.setState((prevState) => {
-  //           return {errors: [...prevState.errors, key]};
-  //         });
-  //       }
-  //     } else {
-  //       // remove from errors
-  //       if (i > -1) {
-  //         this.setState((prevState) => {
-  //           return {
-  //             errors: prevState.errors.filter((error: any) => error !== key),
-  //           };
-  //         });
-  //       }
-  //     }
-  //   }
-  // }
+  const [values, dispatch] = useReducer(
+    reducer,
+    inputs.reduce((acc, {name}) => ({...acc, [name]: ''}), {}),
+  );
 
-  const handleSubmit = useCallback(async () => {
+  const handleBlur = useCallback(
+    ({validate = () => true, name}) => {
+      setErrors(prev => {
+        return validate(values[name])
+          ? prev.filter(err => err !== name)
+          : [...prev, name];
+      });
+    },
+    [setErrors, values],
+  );
+
+  const handleFocus = useCallback(
+    ({name}) => {
+      setErrors(prev => prev.filter(err => err !== name));
+    },
+    [setErrors],
+  );
+
+  const handleSubmit = useCallback(() => {
+    Keyboard.dismiss();
     // ERROR CHECK
     if (errors.length > 0) return;
 
@@ -167,7 +187,7 @@ function WelcomeForm(props) {
 
     // VERIFY
     else {
-      await Auth.confirmSignUp(values.username, values.verify, {
+      Auth.confirmSignUp(values.username, values.verify, {
         forceAliasCreation: true,
       }).then(data => {
         console.debug('verify success!', data);
@@ -176,34 +196,45 @@ function WelcomeForm(props) {
     }
   }, [errors, props, values]);
 
-  const [values, dispatch] = useReducer(
-    reducer,
-    inputs.reduce((acc, input) => ({...acc, [input.name]: ''}), {}),
-  );
-
   return (
     <>
       {inputs.map((input, i) => {
         const isPassword = input.accessoryRight === 'password';
+        const isLast = i === inputs.length - 1;
+        const hasError = errors.includes(input.name);
+
         return (
           <Input
             key={input.name}
+            ref={refs[i]}
             value={values[input.name]}
-            onChangeText={val => dispatch({field: input.name, value: val})}
+            // ui
             label={labelProps => (
               <Text {...labelProps} style={[labelProps.style, styles.label]}>
                 {extractLabel(input)}
               </Text>
             )}
             placeholder={input.placeholder || ''}
+            style={styles.input}
+            status={hasError ? 'danger' : 'basic'}
+            // event handlers
+            onChangeText={val => dispatch({field: input.name, value: val})}
+            onSubmitEditing={() => {
+              if (isLast) handleSubmit();
+              else refs[i + 1].current.focus();
+            }}
+            onFocus={() => handleFocus(input)}
+            onBlur={() => handleBlur(input)}
+            // native props
             autoCapitalize={input.autoCapitalize || 'none'}
             autoCompleteType={input.autoCompleteType || input.name}
             autoCorrect={false}
             autoFocus={i === 0}
             keyboardType={input.keyboardType || 'default'}
-            returnKeyType={i === inputs.length - 1 ? 'done' : 'next'}
+            returnKeyType={isLast ? 'done' : 'next'}
             textContentType={input.textContentType || input.name}
-            secureTextEntry={isPassword && secureTextEntry} // @todo set for password field
+            secureTextEntry={isPassword && secureTextEntry}
+            // accessories
             accessoryRight={
               isPassword
                 ? iconProps => (
@@ -217,8 +248,13 @@ function WelcomeForm(props) {
                   )
                 : undefined
             }
-            style={styles.input}
-            status={errors.includes(input.name) ? 'warning' : 'basic'}
+            caption={textProps =>
+              hasError ? (
+                <Text {...textProps} style={[textProps.style, styles.caption]}>
+                  {input.errorMessage || 'Required'}
+                </Text>
+              ) : null
+            }
           />
         );
       })}
