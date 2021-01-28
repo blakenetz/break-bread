@@ -1,11 +1,21 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {Text} from '@ui-kitten/components';
+import {Text, Layout} from '@ui-kitten/components';
+
+const schema = [
+  {
+    name: 'username',
+    autoCapitalize: 'sentences',
+  },
+  {
+    name: 'password',
+    accessoryRight: 'password',
+  },
+];
 
 export default function Login() {
   return (
-    <SafeAreaView>
+    <Layout>
       <Text>LOGIN!</Text>
-    </SafeAreaView>
+    </Layout>
   );
 }
