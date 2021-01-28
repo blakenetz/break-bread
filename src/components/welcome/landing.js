@@ -1,10 +1,10 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, View} from 'react-native';
+import {ImageBackground, StyleSheet, StatusBar} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
-  view: {width: '100%', minHeight: '100%', flex: 1},
+  view: {flex: 1},
   imageBackground: {
     width: '100%',
     minHeight: '100%',
@@ -26,10 +26,13 @@ const buttons = [
 ];
 
 export default function WelcomeView(props) {
-  const insets = useSafeAreaInsets();
-  console.log(insets);
   return (
-    <View style={styles.view}>
+    <SafeAreaView style={styles.view}>
+      <StatusBar
+        backgroundColor="transparent"
+        barStyle="dark-content"
+        translucent
+      />
       <ImageBackground
         source={require('../../assets/images/blue-pineapple.png')}
         style={styles.imageBackground}>
@@ -50,6 +53,6 @@ export default function WelcomeView(props) {
           </Button>
         ))}
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
