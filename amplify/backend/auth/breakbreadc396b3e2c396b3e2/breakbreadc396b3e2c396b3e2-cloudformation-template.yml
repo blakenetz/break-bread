@@ -75,10 +75,10 @@ Parameters:
   userpoolClientGenerateSecret:
     Type: String
             
-    
   userpoolClientRefreshTokenValidity:
-    Type: Number
-          
+    Type: String
+  
+            
         
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
@@ -113,10 +113,26 @@ Parameters:
     Type: String
   
             
-        
-  usernameAttributes:
-    Type: CommaDelimitedList
-      
+  
+  thirdPartyAuth:
+    Type: String
+            
+  
+  userPoolGroups:
+    Type: String
+            
+  
+  adminQueries:
+    Type: String
+            
+  triggers:
+    Type: String
+  
+            
+  
+  hostedUI:
+    Type: String
+            
         
   userPoolGroupList:
     Type: CommaDelimitedList
@@ -130,6 +146,14 @@ Parameters:
   usernameCaseSensitive:
     Type: String
             
+      
+  parentStack:
+    Type: String
+        
+        
+  permissions:
+    Type: CommaDelimitedList
+      
         
   dependsOn:
     Type: CommaDelimitedList
@@ -145,7 +169,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'breakbb82ed379_sns-role', !Join ['',[ 'sns', 'b82ed379', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'breakbc396b3e2_sns-role', !Join ['',[ 'sns', 'c396b3e2', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -157,10 +181,10 @@ Resources:
               - "sts:AssumeRole"
             Condition:
               StringEquals:
-                sts:ExternalId: breakbb82ed379_role_external_id
+                sts:ExternalId: breakbc396b3e2_role_external_id
       Policies:
         -
-          PolicyName: breakbb82ed379-sns-policy
+          PolicyName: breakbc396b3e2-sns-policy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -185,7 +209,7 @@ Resources:
       Schema:
         
         -
-          Name: email
+          Name: name
           Required: true
           Mutable: true
         
@@ -195,9 +219,6 @@ Resources:
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
       
-      EmailVerificationMessage: !Ref emailVerificationMessage
-      EmailVerificationSubject: !Ref emailVerificationSubject
-      
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
@@ -206,21 +227,33 @@ Resources:
           RequireSymbols: false
           RequireUppercase: false
       
-      UsernameAttributes: !Ref usernameAttributes
-      
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: breakbb82ed379_role_external_id
+        ExternalId: breakbc396b3e2_role_external_id
     
+    DependsOn: SNSRole
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  # Updating lambda role with permissions to Cognito
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: breakbb82ed379_app_clientWeb
+      ClientName: breakbc396b3e2_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -230,7 +263,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: breakbb82ed379_app_client
+      ClientName: breakbc396b3e2_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -241,7 +274,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', 'b82ed379', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', 'c396b3e2', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -295,7 +328,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: breakbb82ed379_userpoolclient_lambda_iam_policy
+      PolicyName: breakbc396b3e2_userpoolclient_lambda_iam_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -312,7 +345,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: breakbb82ed379_userpoolclient_lambda_log_policy
+      PolicyName: breakbc396b3e2_userpoolclient_lambda_log_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -344,6 +377,132 @@ Resources:
   
 
   
+  # BEGIN MFA LAMBDA RESOURCES
+  MFALambdaRole:
+  # Created to execute Lambda which sets MFA config values
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !If [ShouldNotCreateEnvResources, 'breakbc396b3e2_totp_lambda_role', !Join ['',['breakbc396b3e2_totp_lambda_role', '-', !Ref env]]]
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+      - PolicyName: breakbc396b3e2_totp_pass_role_policy
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'iam:PassRole'
+              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/breakbc396b3e2_totp_lambda_role', !Join ['',['arn:aws:iam:::role/breakbc396b3e2_totp_lambda_role', '-', !Ref env]]]
+  MFALambda:
+  # Lambda which sets MFA config values
+  # Depends on MFALambdaRole for role ARN
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Code:
+        ZipFile: !Join
+          - |+
+          - - 'const response = require(''cfn-response'');'
+            - 'const aws = require(''aws-sdk'');'
+            - 'const identity = new aws.CognitoIdentityServiceProvider();'
+            - 'exports.handler = (event, context, callback) => {'
+            - ' if (event.RequestType == ''Delete'') { '
+            - '   response.send(event, context, response.SUCCESS, {})'
+            - ' }'
+            - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
+            - '   let totpParams = {};'
+            - '   try {'
+            - '     totpParams = {'
+            - '       UserPoolId: event.ResourceProperties.userPoolId,'
+            - '       MfaConfiguration: event.ResourceProperties.mfaConfiguration,'
+            - '       SmsMfaConfiguration: {'
+            - '         SmsAuthenticationMessage: event.ResourceProperties.smsAuthenticationMessage,'
+            - '         SmsConfiguration: {'
+            - '           SnsCallerArn: event.ResourceProperties.smsConfigCaller,'
+            - '           ExternalId: event.ResourceProperties.smsConfigExternalId'
+            - '         }'
+            - '       },'
+            - '       SoftwareTokenMfaConfiguration: {Enabled: event.ResourceProperties.totpEnabled.toLowerCase() === ''true'' ? true : false}'
+            - '     };'
+            - '   } catch(e) {'
+            - '     response.send(event, context, response.FAILED, {e});'
+            - '   };'
+            - '   identity.setUserPoolMfaConfig(totpParams).promise()'
+            - '     .then((res) => {'
+            - '       response.send(event, context, response.SUCCESS, {res});'
+            - '     })'
+            - '     .catch((err) => {'
+            - '       response.send(event, context, response.FAILED, {err});'
+            - '     });'
+            - ' }'
+            - '};'
+      Handler: index.handler
+      Runtime: nodejs10.x
+      Timeout: '300'
+      Role: !GetAtt
+        - MFALambdaRole
+        - Arn
+    DependsOn: MFALambdaRole
+  MFALambdaPolicy:
+  # Sets policy for the role that executes the MFA Lambda
+  # Depends on Userpool for Arn
+  # Marked as depending on MFALambda for easier to understand CFN sequencing
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: breakbc396b3e2_totp_lambda_iam_policy
+      Roles:
+        - !If [ShouldNotCreateEnvResources, 'breakbc396b3e2_totp_lambda_role', !Join ['',['breakbc396b3e2_totp_lambda_role', '-', !Ref env]]]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'cognito-idp:SetUserPoolMfaConfig'
+            Resource: !GetAtt UserPool.Arn
+    DependsOn: MFALambda
+  MFALogPolicy:
+  # Sets log policy for the role that executes the MFA Lambda
+  # Marked as depending on MFALambdaPolicy for easier to understand CFN sequencing
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: breakbc396b3e2_totp_lambda_log_policy
+      Roles:
+        - !If [ShouldNotCreateEnvResources, 'breakbc396b3e2_totp_lambda_role', !Join ['',['breakbc396b3e2_totp_lambda_role', '-', !Ref env]]]
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'logs:CreateLogGroup'
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+            Resource: !Sub
+              - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+              - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref MFALambda}
+    DependsOn: MFALambdaPolicy
+  MFALambdaInputs:
+  # Values passed to MFA Lambda
+  # Depends on UserPool for Arn
+  # Depends on MFALambda for Arn
+  # Marked as depending on MFALambdaPolicy for easier to understand CFN sequencing
+    Type: 'Custom::LambdaCallout'
+    Properties:
+      ServiceToken: !GetAtt MFALambda.Arn
+      userPoolId: !Ref UserPool
+      mfaConfiguration: !Ref mfaConfiguration
+      totpEnabled: true
+      smsConfigCaller: !GetAtt SNSRole.Arn
+      smsAuthenticationMessage: !Ref smsAuthenticationMessage
+      smsConfigExternalId: breakbc396b3e2_role_external_id
+    DependsOn: MFALogPolicy
+  
     
   # BEGIN IDENTITY POOL RESOURCES
   
@@ -352,7 +511,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties:
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'breakbreadb82ed379_identitypool_b82ed379', !Join ['',['breakbreadb82ed379_identitypool_b82ed379', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'breakbreadc396b3e2_identitypool_c396b3e2', !Join ['',['breakbreadc396b3e2_identitypool_c396b3e2', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
@@ -406,6 +565,10 @@ Outputs :
     Description: The user pool app client id
   AppClientSecret:
     Value: !GetAtt UserPoolClientInputs.appSecret
+  
+  CreatedSNSRole:
+    Value: !GetAtt SNSRole.Arn
+    Description: role arn
   
   
   

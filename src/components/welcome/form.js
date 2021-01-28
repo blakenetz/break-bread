@@ -7,15 +7,23 @@ import React, {
   createRef,
 } from 'react';
 import {string, func} from 'prop-types';
-import {Text, Input, Button, Icon} from '@ui-kitten/components';
-import {TouchableWithoutFeedback, StyleSheet, Keyboard} from 'react-native';
+import {Text, Button} from '@ui-kitten/components';
+import {StyleSheet, Keyboard} from 'react-native';
 import Auth from '@aws-amplify/auth';
 
-import AuthMenu from './menu';
+import Input from './input';
+
+export const modes = {
+  initial: 'INITIAL',
+  signup: 'SIGNUP',
+  login: 'LOGIN',
+  verify: 'VERIFY',
+  reverify: 'RE-VERIFY',
+};
 
 const passwordSchema = {
   name: 'password',
-  errorMessage: 'Password needs to be at least 7 characters and not obvious.',
+  errorMessage: 'Password needs to be at least 7 characters.',
   passwordRules: 'minlength: 7',
   accessoryRight: 'password',
   validate: val => val.length > 7,
@@ -33,45 +41,46 @@ const schema = {
   newUsername: {
     ...usernameSchema,
     placeholder: 'Make it weird',
+    required: true,
   },
   password: passwordSchema,
   newPassword: {
     ...passwordSchema,
     textContentType: 'newPassword',
     placeholder: 'Make it difficult',
-  },
-  phone: {
-    name: 'phone',
-    label: 'Phone Number',
-    placeholder: 'To verify that you are in fact you...',
-    autoCompleteType: 'tel',
-    textContentType: 'telephoneNumber',
-    keyboardType: 'phone-pad',
-    textContent: 'telephoneNumber',
-    errorMessage: "That's not a phone number! 10 characters please.",
-    validate: val => val.length === 10,
+    required: true,
   },
   verify: {
     name: 'verify',
     label: 'Verification Code',
     placeholder: 'You should have received a spicy text',
     autoCompleteType: 'off',
-    textContent: 'none',
     textContentType: 'oneTimeCode',
+  },
+  info: {
+    name: 'info',
+    label:
+      'In order to verify your account, we need a phone number or email address',
+    children: [
+      {
+        name: 'phone',
+        label: 'Phone Number',
+        autoCompleteType: 'tel',
+        textContentType: 'telephoneNumber',
+        keyboardType: 'phone-pad',
+      },
+      {
+        name: 'email',
+        textContentType: 'emailAddress',
+        keyboardType: 'email-address',
+      },
+    ],
   },
 };
 
 const styles = StyleSheet.create({
   link: {textAlign: 'center', textDecorationLine: 'underline'},
-  input: {margin: 10},
-  label: {color: 'black', fontWeight: 'bold', fontSize: 14},
-  caption: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    borderRadius: 4,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-    fontWeight: 'bold',
-  },
+  text: {paddingHorizontal: 8, paddingVertical: 8},
 });
 
 /**
@@ -89,37 +98,35 @@ function reducer(state, action) {
   };
 }
 
-/**
- * capitalizes label
- * @param {{label?: string, name: string}} input
- */
-function extractLabel({label, name}) {
-  return label || name.replace(/\w/, firstLetter => firstLetter.toUpperCase());
-}
-
 function WelcomeForm(props) {
+  const {changeView, mode, setMessage} = props;
+
   const [refs, setRefs] = useState([]);
-  const [secureTextEntry, setSecureTextEntry] = useState(
-    props.mode === 'signup' || props.mode === 'login',
-  );
   const [errors, setErrors] = useState([]);
+
   const inputs = useMemo(() => {
-    switch (props.mode) {
-      case 'verify':
+    switch (mode) {
+      case modes.verify:
         return [schema.verify];
-      case 're-verify':
+      case modes.reverify:
         return [schema.username, schema.verify];
-      case 'signup':
-        return [schema.newUsername, schema.newPassword, schema.phone];
-      case 'login':
+      case modes.signup:
+        return [schema.newUsername, schema.newPassword, schema.info];
+      case mode.login:
       default:
         return [schema.username, schema.password];
     }
-  }, [props.mode]);
+  }, [mode]);
 
   useEffect(() => {
+    // correct for children
+    let length = input.length;
+    inputs.forEach(input => {
+      (input.children || []).forEach(() => (length += 1));
+    });
+
     setRefs(prev => {
-      return Array(inputs.length)
+      return Array(length)
         .fill()
         .map((_, i) => prev[i] || createRef());
     });
@@ -154,31 +161,38 @@ function WelcomeForm(props) {
     if (errors.length > 0) return;
 
     // SIGN UP
-    if (props.mode === 'signup') {
+    if (mode === modes.signup) {
+      if (!values.phone && !values.email) {
+        setErrors(prev => prev.concat('info'));
+        return;
+      }
+
       Auth.signUp({
         username: values.username,
         password: values.password,
-        attributes: {phone_number: `+1${values.phone}`}, // E.164 number convention
+        attributes: {
+          name: values.username,
+          ...(values.phone ? {phone_number: `+1${values.phone}`} : null), // E.164 number convention
+          ...(values.email ? {email: values.email} : null),
+        },
       })
         .then(data => {
-          console.debug('signup success!', data);
           if (data.user) {
-            props.setMessage(
-              'Congrats! Expect a text message with your verification code 🥠',
+            setMessage(
+              'Welcome! Expect a text message with your verification code 🥠',
             );
-            props.onSubmit('verify');
+            changeView(modes.verify);
           }
         })
         .catch(err => {
-          // this.handleError(err);
-          // user already exists
-          props.setMessage(`Well crud... something bad happened: ${err.code}`);
-          props.onSubmit('login');
+          console.debug(err);
+          // setMessage(`Well crud... something bad happened: ${err.code}`);
+          // changeView('login');
         });
     }
 
     // LOGIN
-    else if (props.mode === 'login') {
+    else if (mode === modes.login) {
       Auth.signIn(values.username, values.password).then(data => {
         console.debug('signIn success!', data);
       });
@@ -194,67 +208,66 @@ function WelcomeForm(props) {
       });
       // .catch(err => this.handleError(err));
     }
-  }, [errors, props, values]);
+  }, [errors, values, mode, changeView, setMessage]);
 
   return (
     <>
       {inputs.map((input, i) => {
-        const isPassword = input.accessoryRight === 'password';
-        const isLast = i === inputs.length - 1;
         const hasError = errors.includes(input.name);
+        if (input.children) {
+          return (
+            <>
+              <Text
+                key={input.name}
+                style={styles.text}
+                category="c2"
+                status={hasError ? 'danger' : 'basic'}>
+                {input.label}
+              </Text>
+
+              {input.children.map((child, ii) => {
+                const index = i + ii + 1;
+                const isLast =
+                  i === inputs.length - 1 && ii === input.children.length - 1;
+
+                return (
+                  <Input
+                    input={child}
+                    value={values[child.name]}
+                    ref={refs[index]}
+                    handleSubmitEditing={() => {
+                      if (isLast) handleSubmit();
+                      else refs[index + 1].current.focus();
+                    }}
+                    handleChange={val => {
+                      dispatch({field: child.name, value: val});
+                    }}
+                    handleFocus={() => handleFocus(child)}
+                    handleBlur={() => handleFocus(child)}
+                    returnKeyType={isLast ? 'done' : 'next'}
+                    hasError={errors.includes(child.name)}
+                  />
+                );
+              })}
+            </>
+          );
+        }
 
         return (
           <Input
-            key={input.name}
-            ref={refs[i]}
+            input={input}
             value={values[input.name]}
-            // ui
-            label={labelProps => (
-              <Text {...labelProps} style={[labelProps.style, styles.label]}>
-                {extractLabel(input)}
-              </Text>
-            )}
-            placeholder={input.placeholder || ''}
-            style={styles.input}
-            status={hasError ? 'danger' : 'basic'}
-            // event handlers
-            onChangeText={val => dispatch({field: input.name, value: val})}
-            onSubmitEditing={() => {
+            ref={refs[i]}
+            handleSubmitEditing={() => {
               if (isLast) handleSubmit();
               else refs[i + 1].current.focus();
             }}
-            onFocus={() => handleFocus(input)}
-            onBlur={() => handleBlur(input)}
-            // native props
-            autoCapitalize={input.autoCapitalize || 'none'}
-            autoCompleteType={input.autoCompleteType || input.name}
-            autoCorrect={false}
+            handleChange={val => dispatch({field: input.name, value: val})}
+            handleFocus={() => handleFocus(input)}
+            handleBlur={() => handleFocus(input)}
             autoFocus={i === 0}
-            keyboardType={input.keyboardType || 'default'}
-            returnKeyType={isLast ? 'done' : 'next'}
-            textContentType={input.textContentType || input.name}
-            secureTextEntry={isPassword && secureTextEntry}
-            // accessories
-            accessoryRight={
-              isPassword
-                ? iconProps => (
-                    <TouchableWithoutFeedback
-                      onPress={() => setSecureTextEntry(prev => !prev)}>
-                      <Icon
-                        {...iconProps}
-                        name={secureTextEntry ? 'eye-off' : 'eye'}
-                      />
-                    </TouchableWithoutFeedback>
-                  )
-                : undefined
-            }
-            caption={textProps =>
-              hasError ? (
-                <Text {...textProps} style={[textProps.style, styles.caption]}>
-                  {input.errorMessage || 'Required'}
-                </Text>
-              ) : null
-            }
+            returnKeyType={i === inputs.length - 1 ? 'done' : 'next'}
+            hasError={hasError}
           />
         );
       })}
@@ -263,13 +276,15 @@ function WelcomeForm(props) {
         <Text>Submit!</Text>
       </Button>
 
-      {Boolean(props.mode !== 'verify') && (
-        <Text onPress={() => props.onSubmit('re-verify')} style={styles.link}>
+      {Boolean(props.mode !== modes.verify) && (
+        <Text
+          onPress={() => props.changeView(modes.reverify)}
+          style={styles.link}>
           Need to verify your account?
         </Text>
       )}
 
-      {/* <AuthMenu handlePress={props.onSubmit} /> */}
+      {/* <AuthMenu handlePress={props.changeView} /> */}
     </>
   );
 }
@@ -277,7 +292,7 @@ function WelcomeForm(props) {
 WelcomeForm.propTypes = {
   mode: string.isRequired,
   setMessage: func.isRequired,
-  onSubmit: func.isRequired,
+  changeView: func.isRequired,
 };
 
 export default WelcomeForm;

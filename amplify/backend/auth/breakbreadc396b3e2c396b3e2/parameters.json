@@ -1,37 +1,38 @@
 {
-    "identityPoolName": "breakbreadb82ed379_identitypool_b82ed379",
+    "identityPoolName": "breakbreadc396b3e2_identitypool_c396b3e2",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "breakbb82ed379",
-    "userPoolName": "breakbreadb82ed379_userpool_b82ed379",
+    "resourceNameTruncated": "breakbc396b3e2",
+    "userPoolName": "breakbreadc396b3e2_userpool_c396b3e2",
     "autoVerifiedAttributes": [
-        "email"
+        "phone_number"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-        "SMS Text Message"
+        "SMS Text Message",
+        "TOTP"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "name"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "365",
     "userpoolClientWriteAttributes": [
         "email"
     ],
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "breakbb82ed379_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "breakbc396b3e2_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b82ed379",
-    "resourceName": "breakbreadb82ed379",
+    "sharedId": "c396b3e2",
+    "resourceName": "breakbreadc396b3e2c396b3e2",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,12 +46,18 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
-    "usernameAttributes": [
-        "email, phone_number"
-    ],
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }

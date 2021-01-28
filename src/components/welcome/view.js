@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
 
-import Form from './form';
+import Form, {modes} from './form';
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -21,16 +21,14 @@ const styles = StyleSheet.create({
   buttonText: {color: 'black'},
 });
 
-const initialMode = 'initial';
-
 const buttons = [
-  {label: 'Log in!', key: 'login'},
-  {label: 'Sign up!', key: 'signup'},
+  {label: 'Log in!', mode: modes.login},
+  {label: 'Sign up!', mode: modes.signup},
 ];
 
 export default function WelcomeView() {
   const [message, setMessage] = useState();
-  const [mode, setMode] = useState(initialMode);
+  const [mode, setMode] = useState(modes.initial);
 
   return (
     <ImageBackground
@@ -40,11 +38,11 @@ export default function WelcomeView() {
 
       {Boolean(message) && <Text style={styles.message}>{message}</Text>}
 
-      {mode === initialMode ? (
+      {mode === modes.initial ? (
         buttons.map(btn => (
           <Button
-            key={btn.key}
-            onPress={() => setMode(btn.key)}
+            key={btn.mode}
+            onPress={() => setMode(btn.mode)}
             style={styles.button}>
             {textProps => (
               <Text {...textProps} style={[textProps.style, styles.buttonText]}>
@@ -54,7 +52,7 @@ export default function WelcomeView() {
           </Button>
         ))
       ) : (
-        <Form mode={mode} onSubmit={setMode} setMessage={setMessage} />
+        <Form mode={mode} changeView={setMode} setMessage={setMessage} />
       )}
     </ImageBackground>
   );
