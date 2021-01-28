@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import {Button, Text} from '@ui-kitten/components';
-
-import Form, {modes} from './form';
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -22,38 +20,31 @@ const styles = StyleSheet.create({
 });
 
 const buttons = [
-  {label: 'Log in!', mode: modes.login},
-  {label: 'Sign up!', mode: modes.signup},
+  {label: 'Log in!', route: 'Login'},
+  {label: 'Sign up!', route: 'Signup'},
 ];
 
-export default function WelcomeView() {
-  const [message, setMessage] = useState();
-  const [mode, setMode] = useState(modes.initial);
-
+export default function WelcomeView(props) {
   return (
     <ImageBackground
       source={require('../../assets/images/blue-pineapple.png')}
       style={styles.imageBackground}>
       <Text style={styles.title}>Break Bread.</Text>
 
-      {Boolean(message) && <Text style={styles.message}>{message}</Text>}
+      {/* {Boolean(message) && <Text style={styles.message}>{message}</Text>} */}
 
-      {mode === modes.initial ? (
-        buttons.map(btn => (
-          <Button
-            key={btn.mode}
-            onPress={() => setMode(btn.mode)}
-            style={styles.button}>
-            {textProps => (
-              <Text {...textProps} style={[textProps.style, styles.buttonText]}>
-                {btn.label}
-              </Text>
-            )}
-          </Button>
-        ))
-      ) : (
-        <Form mode={mode} changeView={setMode} setMessage={setMessage} />
-      )}
+      {buttons.map(btn => (
+        <Button
+          key={btn.route}
+          onPress={() => props.navigation.navigate(btn.route)}
+          style={styles.button}>
+          {textProps => (
+            <Text {...textProps} style={[textProps.style, styles.buttonText]}>
+              {btn.label}
+            </Text>
+          )}
+        </Button>
+      ))}
     </ImageBackground>
   );
 }
