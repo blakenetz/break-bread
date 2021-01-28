@@ -8,7 +8,7 @@ import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 
 import aws_exports from './aws-exports';
-import WelcomeView from './components/welcome/view';
+import WelcomeStack from './navigators/welcome';
 import RootView from './components/root/view';
 import {default as theme} from './assets/theme.json';
 import {default as mapping} from './assets/mapping.json';
@@ -31,7 +31,7 @@ export default function App() {
         customMapping={mapping}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Welcome" headerMode="none">
-            <Stack.Screen name="Welcome" component={WelcomeView} />
+            <Stack.Screen name="Welcome" component={WelcomeStack} />
             <Stack.Screen name="Root" component={RootView} />
           </Stack.Navigator>
         </NavigationContainer>
