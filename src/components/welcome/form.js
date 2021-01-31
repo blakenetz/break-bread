@@ -166,37 +166,6 @@ function WelcomeForm(props) {
         setErrors(prev => prev.concat('info'));
         return;
       }
-
-      Auth.signUp({
-        username: values.username,
-        password: values.password,
-        attributes: {
-          name: values.username,
-          ...(values.phone ? {phone_number: `+1${values.phone}`} : null), // E.164 number convention
-          ...(values.email ? {email: values.email} : null),
-        },
-      })
-        .then(data => {
-          if (data.user) {
-            setMessage(
-              'Welcome! Expect a text message with your verification code 🥠',
-            );
-            changeView(modes.verify);
-          }
-        })
-        .catch(err => {
-          console.debug(err);
-          // setMessage(`Well crud... something bad happened: ${err.code}`);
-          // changeView('login');
-        });
-    }
-
-    // LOGIN
-    else if (mode === modes.login) {
-      Auth.signIn(values.username, values.password).then(data => {
-        console.debug('signIn success!', data);
-      });
-      // .catch(err => this.handleError(err));
     }
 
     // VERIFY

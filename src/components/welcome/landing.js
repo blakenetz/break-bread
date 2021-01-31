@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 30,
     textAlign: 'center',
     padding: 10,
+    fontFamily: 'Traveling _Typewriter',
   },
   message: {textAlign: 'center'},
   button: {margin: 10},
@@ -36,9 +36,9 @@ export default function WelcomeView(props) {
       <ImageBackground
         source={require('../../assets/images/blue-pineapple.png')}
         style={styles.imageBackground}>
-        <Text style={styles.title}>Break Bread.</Text>
-
-        {/* {Boolean(message) && <Text style={styles.message}>{message}</Text>} */}
+        <Text style={styles.title} category="h1">
+          Break Bread.
+        </Text>
 
         {buttons.map(btn => (
           <Button

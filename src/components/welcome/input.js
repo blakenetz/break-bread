@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, forwardRef} from 'react';
 import {Text, Input as UiKittenInput, Icon} from '@ui-kitten/components';
 import {TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import {string, func, bool, shape} from 'prop-types';
+import {string, func, bool, shape, object} from 'prop-types';
 
 function extractLabel({name, label, required}) {
   return `${
@@ -10,7 +10,7 @@ function extractLabel({name, label, required}) {
 }
 
 const styles = StyleSheet.create({
-  input: {margin: 10},
+  input: {marginVertical: 10},
   label: {color: 'black', fontWeight: 'bold', fontSize: 14},
   caption: {
     backgroundColor: 'rgba(255,255,255,0.7)',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function Input(props) {
+const Input = forwardRef((props, ref) => {
   const [secureTextEntry, setSecureTextEntry] = useState(
     Boolean(props.input.accessoryRight),
   );
@@ -30,6 +30,7 @@ function Input(props) {
     <UiKittenInput
       key={props.input.name}
       value={props.value}
+      ref={ref}
       // ui
       label={textProps => (
         <Text {...textProps} style={[textProps.style, styles.label]}>
@@ -37,7 +38,7 @@ function Input(props) {
         </Text>
       )}
       placeholder={props.input.placeholder || ''}
-      style={styles.input}
+      style={[styles.input, props.style]}
       status={props.hasError ? 'danger' : 'basic'}
       // event handlers
       onChangeText={props.handleChange}
@@ -53,6 +54,9 @@ function Input(props) {
       returnKeyType={props.returnKeyType}
       textContentType={props.input.textContentType || props.input.name}
       secureTextEntry={secureTextEntry}
+      enablesReturnKeyAutomatically={
+        props.input.enablesReturnKeyAutomatically || false
+      }
       // accessories
       accessoryRight={iconProps => {
         if (!props.input.accessoryRight) return null;
@@ -73,7 +77,7 @@ function Input(props) {
       }}
     />
   );
-}
+});
 
 Input.propTypes = {
   input: shape({
@@ -87,6 +91,7 @@ Input.propTypes = {
     required: bool,
     errorMessage: string,
     accessoryRight: string,
+    enablesReturnKeyAutomatically: bool,
   }).isRequired,
   value: string.isRequired,
   handleSubmitEditing: func.isRequired,
@@ -96,12 +101,14 @@ Input.propTypes = {
   autoFocus: bool,
   returnKeyType: string,
   hasError: bool,
+  style: object,
 };
 
 Input.defaultProps = {
   autoFocus: false,
   returnKeyType: 'next',
   hasError: false,
+  style: {},
 };
 
 export default Input;
