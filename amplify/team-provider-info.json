@@ -10,11 +10,6 @@
       "StackName": "amplify-breakbread-dev-162926",
       "StackId": "arn:aws:cloudformation:us-east-1:187864192245:stack/amplify-breakbread-dev-162926/02aae870-59e5-11eb-a3b4-0e69690dd155",
       "AmplifyAppId": "d3vh3ziv2xkrzi"
-    },
-    "categories": {
-      "auth": {
-        "breakbreadc396b3e2c396b3e2": {}
-      }
     }
   }
 }

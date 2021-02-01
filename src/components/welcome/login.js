@@ -63,7 +63,10 @@ export default function Login(props) {
       .then(data => {
         console.debug('signIn success!', data);
       })
-      .catch(err => console.debug('error at login', err));
+      .catch(err => {
+        console.debug('error at login', err);
+        props.navigation.navigate('Landing', {error: true});
+      });
   }, [values, errors]);
 
   const handleBlur = useCallback(
@@ -92,7 +95,7 @@ export default function Login(props) {
       />
 
       <Text category="h1" style={styles.title}>
-        LOGIN!
+        Login!
       </Text>
 
       {schema.map((input, i) => (

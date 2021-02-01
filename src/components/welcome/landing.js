@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, StatusBar} from 'react-native';
-import {Button, Text} from '@ui-kitten/components';
+import {Button, Text, Icon, Layout, useTheme} from '@ui-kitten/components';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
@@ -12,12 +12,19 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    padding: 10,
+    padding: 16,
     fontFamily: 'Traveling _Typewriter',
   },
-  message: {textAlign: 'center'},
-  button: {margin: 10},
+  margin: {marginVertical: 12, marginHorizontal: 16},
   buttonText: {color: 'black'},
+  error: {
+    textAlign: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 4,
+    borderRadius: 8,
+  },
+  icon: {width: 15, height: 15, marginHorizontal: 4},
 });
 
 const buttons = [
@@ -26,6 +33,9 @@ const buttons = [
 ];
 
 export default function WelcomeView(props) {
+  const theme = useTheme();
+  const {error} = props.route.params || {};
+
   return (
     <SafeAreaView style={styles.view}>
       <StatusBar
@@ -36,6 +46,24 @@ export default function WelcomeView(props) {
       <ImageBackground
         source={require('../../assets/images/blue-pineapple.png')}
         style={styles.imageBackground}>
+        {error && (
+          <Layout
+            style={[
+              styles.margin,
+              styles.error,
+              {backgroundColor: theme['color-danger-transparent-600']},
+            ]}>
+            <Icon
+              name="alert-circle-outline"
+              style={styles.icon}
+              fill={theme['text-basic-color']}
+            />
+            <Text style={styles.error}>
+              Sorry an error occurred. Maybe try again?
+            </Text>
+          </Layout>
+        )}
+
         <Text style={styles.title} category="h1">
           Break Bread.
         </Text>
@@ -44,7 +72,7 @@ export default function WelcomeView(props) {
           <Button
             key={btn.route}
             onPress={() => props.navigation.navigate(btn.route)}
-            style={styles.button}>
+            style={styles.margin}>
             {textProps => (
               <Text {...textProps} style={[textProps.style, styles.buttonText]}>
                 {btn.label}

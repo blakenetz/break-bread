@@ -11,35 +11,32 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import Input from './input';
 
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 const schema = [
   {
     name: 'name',
+    errorMessage: 'Everyone needs a name',
+    validate: val => emailRegex.test(val),
     autoCapitalize: 'words',
-    placeholder: 'Who you',
     enablesReturnKeyAutomatically: true,
-    validate: val => {
-      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        val,
-      );
-    },
   },
   {
     name: 'email',
-    errorMessage: "C'mon man, please add an email",
+    errorMessage: "C'mon man, add your email",
     validate: val => val.length > 0,
-    placeholder: 'Make it good one',
     textContentType: 'emailAddress',
     keyboardType: 'email-address',
     enablesReturnKeyAutomatically: true,
   },
   {
     name: 'password',
-    accessoryRight: 'password',
+    errorMessage: 'Password needs to be at least 7 characters',
+    validate: val => val.length > 7,
+    passwordRules: 'minlength: 7',
     textContentType: 'newPassword',
     placeholder: 'Make it difficult',
-    errorMessage: 'Password needs to be at least 7 characters.',
-    passwordRules: 'minlength: 7',
-    validate: val => val.length > 7,
+    accessoryRight: 'password',
     enablesReturnKeyAutomatically: true,
   },
 ];
@@ -78,6 +75,7 @@ export default function Login(props) {
 
   const handleSubmit = useCallback(() => {
     if (errors.length) return;
+
     Auth.signUp({
       username: values.username,
       password: values.password,
@@ -87,17 +85,20 @@ export default function Login(props) {
         ...(values.email ? {email: values.email} : null),
       },
     })
-      .then(data => {})
-      .catch(err => console.debug('error at sign up', err));
+      .then(data => {
+        console.log({data});
+      })
+      .catch(err => {
+        console.debug('error at sign up', err);
+        props.navigation.navigate('Landing', {error: true});
+      });
   }, [values, errors]);
 
   const handleBlur = useCallback(
     input => {
+      const {validate} = schema.find(({name}) => name === input.name);
       setErrors(prev => {
-        const {validate} = schema.find(({name}) => name === input.name);
-        if (!validate(values[input.name])) {
-          return prev.filter(err => err !== input.name);
-        }
+        return !validate(values[input.name]) ? prev.concat(input.name) : prev;
       });
     },
     [values, setErrors],

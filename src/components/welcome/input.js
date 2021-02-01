@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   input: {marginVertical: 10},
   label: {color: 'black', fontWeight: 'bold', fontSize: 14},
   caption: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
     borderRadius: 4,
     paddingHorizontal: 4,
     paddingVertical: 2,
