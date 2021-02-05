@@ -31,8 +31,8 @@ const Input = forwardRef((props, ref) => {
       value={props.value}
       ref={ref}
       // ui
-      label={textProps => (
-        <Text {...textProps} style={[textProps.style, styles.label]}>
+      label={({style, ...p}) => (
+        <Text {...p} style={[style, styles.label]}>
           {extractLabel(props.input)}
         </Text>
       )}
@@ -57,19 +57,23 @@ const Input = forwardRef((props, ref) => {
         props.input.enablesReturnKeyAutomatically || false
       }
       // accessories
-      accessoryRight={iconProps => {
-        if (!props.input.accessoryRight) return null;
+      accessoryRight={p => {
+        if (!props.input.accessoryRight) {
+          return null;
+        }
         return (
           <TouchableWithoutFeedback
             onPress={() => setSecureTextEntry(prev => !prev)}>
-            <Icon {...iconProps} name={secureTextEntry ? 'eye-off' : 'eye'} />
+            <Icon {...p} name={secureTextEntry ? 'eye-off' : 'eye'} />
           </TouchableWithoutFeedback>
         );
       }}
-      caption={textProps => {
-        if (!props.hasError) return null;
+      caption={({style, ...p}) => {
+        if (!props.hasError) {
+          return null;
+        }
         return (
-          <Text {...textProps} style={[textProps.style, styles.caption]}>
+          <Text {...p} style={[style, styles.caption]}>
             {props.input.errorMessage || 'Required'}
           </Text>
         );
@@ -78,20 +82,22 @@ const Input = forwardRef((props, ref) => {
   );
 });
 
+export const inputProp = shape({
+  name: string.isRequired,
+  label: string,
+  placeholder: string,
+  autoCapitalize: string,
+  autoCompleteType: string,
+  keyboardType: string,
+  textContentType: string,
+  required: bool,
+  errorMessage: string,
+  accessoryRight: string,
+  enablesReturnKeyAutomatically: bool,
+});
+
 Input.propTypes = {
-  input: shape({
-    name: string.isRequired,
-    label: string,
-    placeholder: string,
-    autoCapitalize: string,
-    autoCompleteType: string,
-    keyboardType: string,
-    textContentType: string,
-    required: bool,
-    errorMessage: string,
-    accessoryRight: string,
-    enablesReturnKeyAutomatically: bool,
-  }).isRequired,
+  input: inputProp.isRequired,
   value: string.isRequired,
   handleSubmitEditing: func.isRequired,
   handleChange: func.isRequired,

@@ -73,8 +73,8 @@ export default function WelcomeView(props) {
             key={btn.route}
             onPress={() => props.navigation.navigate(btn.route)}
             style={styles.margin}>
-            {textProps => (
-              <Text {...textProps} style={[textProps.style, styles.buttonText]}>
+            {({style, ...p}) => (
+              <Text {...p} style={[style, styles.buttonText]}>
                 {btn.label}
               </Text>
             )}
