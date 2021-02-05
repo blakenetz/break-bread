@@ -5,7 +5,12 @@ import React, {
   useReducer,
   useCallback,
 } from 'react';
-import {StatusBar, StyleSheet, TouchableWithoutFeedback} from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  ScrollView,
+} from 'react-native';
 import {Text} from '@ui-kitten/components';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
@@ -119,39 +124,41 @@ export default function Login(props) {
         translucent
       />
 
-      <Text category="h1" style={styles.title}>
-        Sign up!
-      </Text>
+      <ScrollView>
+        <Text category="h1" style={styles.title}>
+          Sign up!
+        </Text>
 
-      {schema.map((input, i) => (
-        <Input
-          key={input.name}
-          ref={refs[i]}
-          input={input}
-          value={values[input.name]}
-          handleSubmitEditing={() => {
-            if (i === schema.length - 1) handleSubmit();
-            else refs[i + 1].current.focus();
-          }}
-          handleChange={val => dispatch({field: input.name, value: val})}
-          handleFocus={() => handleFocus(input)}
-          handleBlur={() => handleBlur(input)}
-          autoFocus={i === 0}
-          returnKeyType={i === schema.length - 1 ? 'done' : 'next'}
-          hasError={errors.includes(input.name)}
-        />
-      ))}
+        {schema.map((input, i) => (
+          <Input
+            key={input.name}
+            ref={refs[i]}
+            input={input}
+            value={values[input.name]}
+            handleSubmitEditing={() => {
+              if (i === schema.length - 1) handleSubmit();
+              else refs[i + 1].current.focus();
+            }}
+            handleChange={val => dispatch({field: input.name, value: val})}
+            handleFocus={() => handleFocus(input)}
+            handleBlur={() => handleBlur(input)}
+            autoFocus={i === 0}
+            returnKeyType={i === schema.length - 1 ? 'done' : 'next'}
+            hasError={errors.includes(input.name)}
+          />
+        ))}
 
-      <Text style={styles.text}>
-        Already have an account?{' '}
-        <TouchableWithoutFeedback
-          accessibilityLabel="sign up"
-          onPress={() => props.navigation.navigate('Login')}>
-          <Text status="info" style={styles.link}>
-            Login
-          </Text>
-        </TouchableWithoutFeedback>
-      </Text>
+        <Text style={styles.text}>
+          Already have an account?{' '}
+          <TouchableWithoutFeedback
+            accessibilityLabel="sign up"
+            onPress={() => props.navigation.navigate('Login')}>
+            <Text status="info" style={styles.link}>
+              Login
+            </Text>
+          </TouchableWithoutFeedback>
+        </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }

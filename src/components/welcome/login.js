@@ -72,8 +72,9 @@ export default function Login(props) {
   const handleBlur = useCallback(
     input => {
       setErrors(prev => {
-        if (!values[input.name].length)
-          return prev.filter(err => err !== input.name);
+        return !values[input.name].length
+          ? prev.filter(err => err !== input.name)
+          : prev;
       });
     },
     [values, setErrors],
